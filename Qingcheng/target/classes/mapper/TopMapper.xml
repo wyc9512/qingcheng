@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="nsu.edu.qingcheng.dao.TopMapper">
+  <resultMap id="BaseResultMap" type="nsu.edu.qingcheng.bean.Top">
+    <id column="TOP_ID" jdbcType="INTEGER" property="topId" />
+    <result column="TOP_NAME" jdbcType="VARCHAR" property="topName" />
+    <result column="TOP_LOGO" jdbcType="VARCHAR" property="topLogo" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    TOP_ID, TOP_NAME, TOP_LOGO
+  </sql>
+  <select id="selectByExample" parameterType="nsu.edu.qingcheng.bean.TopExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from top
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from top
+    where TOP_ID = #{topId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from top
+    where TOP_ID = #{topId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="nsu.edu.qingcheng.bean.TopExample">
+    delete from top
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="nsu.edu.qingcheng.bean.Top">
+    insert into top (TOP_ID, TOP_NAME, TOP_LOGO
+      )
+    values (#{topId,jdbcType=INTEGER}, #{topName,jdbcType=VARCHAR}, #{topLogo,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="nsu.edu.qingcheng.bean.Top">
+    insert into top
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="topId != null">
+        TOP_ID,
+      </if>
+      <if test="topName != null">
+        TOP_NAME,
+      </if>
+      <if test="topLogo != null">
+        TOP_LOGO,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="topId != null">
+        #{topId,jdbcType=INTEGER},
+      </if>
+      <if test="topName != null">
+        #{topName,jdbcType=VARCHAR},
+      </if>
+      <if test="topLogo != null">
+        #{topLogo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="nsu.edu.qingcheng.bean.TopExample" resultType="java.lang.Long">
+    select count(*) from top
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update top
+    <set>
+      <if test="record.topId != null">
+        TOP_ID = #{record.topId,jdbcType=INTEGER},
+      </if>
+      <if test="record.topName != null">
+        TOP_NAME = #{record.topName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.topLogo != null">
+        TOP_LOGO = #{record.topLogo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update top
+    set TOP_ID = #{record.topId,jdbcType=INTEGER},
+      TOP_NAME = #{record.topName,jdbcType=VARCHAR},
+      TOP_LOGO = #{record.topLogo,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="nsu.edu.qingcheng.bean.Top">
+    update top
+    <set>
+      <if test="topName != null">
+        TOP_NAME = #{topName,jdbcType=VARCHAR},
+      </if>
+      <if test="topLogo != null">
+        TOP_LOGO = #{topLogo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where TOP_ID = #{topId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="nsu.edu.qingcheng.bean.Top">
+    update top
+    set TOP_NAME = #{topName,jdbcType=VARCHAR},
+      TOP_LOGO = #{topLogo,jdbcType=VARCHAR}
+    where TOP_ID = #{topId,jdbcType=INTEGER}
+  </update>
+</mapper>

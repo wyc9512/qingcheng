@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="nsu.edu.qingcheng.dao.VillageMapper">
+  <resultMap id="BaseResultMap" type="nsu.edu.qingcheng.bean.Village">
+    <id column="VILLAGE_ID" jdbcType="INTEGER" property="villageId" />
+    <result column="VILLAGE_NAME" jdbcType="VARCHAR" property="villageName" />
+    <result column="VILLAGE_PIC" jdbcType="VARCHAR" property="villagePic" />
+    <result column="VILLAGE_INTRODUCE" jdbcType="VARCHAR" property="villageIntroduce" />
+    <result column="VILLAGE_PLACE" jdbcType="VARCHAR" property="villagePlace" />
+    <result column="VILLAGE_KEYWORD" jdbcType="VARCHAR" property="villageKeyword" />
+    <result column="VILLAGE_MAP" jdbcType="VARCHAR" property="villageMap" />
+    <result column="VILLAGE_TRAFFIC" jdbcType="VARCHAR" property="villageTraffic" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="nsu.edu.qingcheng.bean.Village">
+    <result column="VILLAGE_TEXT" jdbcType="LONGVARCHAR" property="villageText" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    VILLAGE_ID, VILLAGE_NAME, VILLAGE_PIC, VILLAGE_INTRODUCE, VILLAGE_PLACE, VILLAGE_KEYWORD, 
+    VILLAGE_MAP, VILLAGE_TRAFFIC
+  </sql>
+  <sql id="Blob_Column_List">
+    VILLAGE_TEXT
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="nsu.edu.qingcheng.bean.VillageExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from village
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="nsu.edu.qingcheng.bean.VillageExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from village
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from village
+    where VILLAGE_ID = #{villageId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from village
+    where VILLAGE_ID = #{villageId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="nsu.edu.qingcheng.bean.VillageExample">
+    delete from village
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="nsu.edu.qingcheng.bean.Village">
+    insert into village (VILLAGE_ID, VILLAGE_NAME, VILLAGE_PIC, 
+      VILLAGE_INTRODUCE, VILLAGE_PLACE, VILLAGE_KEYWORD, 
+      VILLAGE_MAP, VILLAGE_TRAFFIC, VILLAGE_TEXT
+      )
+    values (#{villageId,jdbcType=INTEGER}, #{villageName,jdbcType=VARCHAR}, #{villagePic,jdbcType=VARCHAR}, 
+      #{villageIntroduce,jdbcType=VARCHAR}, #{villagePlace,jdbcType=VARCHAR}, #{villageKeyword,jdbcType=VARCHAR}, 
+      #{villageMap,jdbcType=VARCHAR}, #{villageTraffic,jdbcType=VARCHAR}, #{villageText,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="nsu.edu.qingcheng.bean.Village">
+    insert into village
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="villageId != null">
+        VILLAGE_ID,
+      </if>
+      <if test="villageName != null">
+        VILLAGE_NAME,
+      </if>
+      <if test="villagePic != null">
+        VILLAGE_PIC,
+      </if>
+      <if test="villageIntroduce != null">
+        VILLAGE_INTRODUCE,
+      </if>
+      <if test="villagePlace != null">
+        VILLAGE_PLACE,
+      </if>
+      <if test="villageKeyword != null">
+        VILLAGE_KEYWORD,
+      </if>
+      <if test="villageMap != null">
+        VILLAGE_MAP,
+      </if>
+      <if test="villageTraffic != null">
+        VILLAGE_TRAFFIC,
+      </if>
+      <if test="villageText != null">
+        VILLAGE_TEXT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="villageId != null">
+        #{villageId,jdbcType=INTEGER},
+      </if>
+      <if test="villageName != null">
+        #{villageName,jdbcType=VARCHAR},
+      </if>
+      <if test="villagePic != null">
+        #{villagePic,jdbcType=VARCHAR},
+      </if>
+      <if test="villageIntroduce != null">
+        #{villageIntroduce,jdbcType=VARCHAR},
+      </if>
+      <if test="villagePlace != null">
+        #{villagePlace,jdbcType=VARCHAR},
+      </if>
+      <if test="villageKeyword != null">
+        #{villageKeyword,jdbcType=VARCHAR},
+      </if>
+      <if test="villageMap != null">
+        #{villageMap,jdbcType=VARCHAR},
+      </if>
+      <if test="villageTraffic != null">
+        #{villageTraffic,jdbcType=VARCHAR},
+      </if>
+      <if test="villageText != null">
+        #{villageText,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="nsu.edu.qingcheng.bean.VillageExample" resultType="java.lang.Long">
+    select count(*) from village
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update village
+    <set>
+      <if test="record.villageId != null">
+        VILLAGE_ID = #{record.villageId,jdbcType=INTEGER},
+      </if>
+      <if test="record.villageName != null">
+        VILLAGE_NAME = #{record.villageName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.villagePic != null">
+        VILLAGE_PIC = #{record.villagePic,jdbcType=VARCHAR},
+      </if>
+      <if test="record.villageIntroduce != null">
+        VILLAGE_INTRODUCE = #{record.villageIntroduce,jdbcType=VARCHAR},
+      </if>
+      <if test="record.villagePlace != null">
+        VILLAGE_PLACE = #{record.villagePlace,jdbcType=VARCHAR},
+      </if>
+      <if test="record.villageKeyword != null">
+        VILLAGE_KEYWORD = #{record.villageKeyword,jdbcType=VARCHAR},
+      </if>
+      <if test="record.villageMap != null">
+        VILLAGE_MAP = #{record.villageMap,jdbcType=VARCHAR},
+      </if>
+      <if test="record.villageTraffic != null">
+        VILLAGE_TRAFFIC = #{record.villageTraffic,jdbcType=VARCHAR},
+      </if>
+      <if test="record.villageText != null">
+        VILLAGE_TEXT = #{record.villageText,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update village
+    set VILLAGE_ID = #{record.villageId,jdbcType=INTEGER},
+      VILLAGE_NAME = #{record.villageName,jdbcType=VARCHAR},
+      VILLAGE_PIC = #{record.villagePic,jdbcType=VARCHAR},
+      VILLAGE_INTRODUCE = #{record.villageIntroduce,jdbcType=VARCHAR},
+      VILLAGE_PLACE = #{record.villagePlace,jdbcType=VARCHAR},
+      VILLAGE_KEYWORD = #{record.villageKeyword,jdbcType=VARCHAR},
+      VILLAGE_MAP = #{record.villageMap,jdbcType=VARCHAR},
+      VILLAGE_TRAFFIC = #{record.villageTraffic,jdbcType=VARCHAR},
+      VILLAGE_TEXT = #{record.villageText,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update village
+    set VILLAGE_ID = #{record.villageId,jdbcType=INTEGER},
+      VILLAGE_NAME = #{record.villageName,jdbcType=VARCHAR},
+      VILLAGE_PIC = #{record.villagePic,jdbcType=VARCHAR},
+      VILLAGE_INTRODUCE = #{record.villageIntroduce,jdbcType=VARCHAR},
+      VILLAGE_PLACE = #{record.villagePlace,jdbcType=VARCHAR},
+      VILLAGE_KEYWORD = #{record.villageKeyword,jdbcType=VARCHAR},
+      VILLAGE_MAP = #{record.villageMap,jdbcType=VARCHAR},
+      VILLAGE_TRAFFIC = #{record.villageTraffic,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="nsu.edu.qingcheng.bean.Village">
+    update village
+    <set>
+      <if test="villageName != null">
+        VILLAGE_NAME = #{villageName,jdbcType=VARCHAR},
+      </if>
+      <if test="villagePic != null">
+        VILLAGE_PIC = #{villagePic,jdbcType=VARCHAR},
+      </if>
+      <if test="villageIntroduce != null">
+        VILLAGE_INTRODUCE = #{villageIntroduce,jdbcType=VARCHAR},
+      </if>
+      <if test="villagePlace != null">
+        VILLAGE_PLACE = #{villagePlace,jdbcType=VARCHAR},
+      </if>
+      <if test="villageKeyword != null">
+        VILLAGE_KEYWORD = #{villageKeyword,jdbcType=VARCHAR},
+      </if>
+      <if test="villageMap != null">
+        VILLAGE_MAP = #{villageMap,jdbcType=VARCHAR},
+      </if>
+      <if test="villageTraffic != null">
+        VILLAGE_TRAFFIC = #{villageTraffic,jdbcType=VARCHAR},
+      </if>
+      <if test="villageText != null">
+        VILLAGE_TEXT = #{villageText,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where VILLAGE_ID = #{villageId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="nsu.edu.qingcheng.bean.Village">
+    update village
+    set VILLAGE_NAME = #{villageName,jdbcType=VARCHAR},
+      VILLAGE_PIC = #{villagePic,jdbcType=VARCHAR},
+      VILLAGE_INTRODUCE = #{villageIntroduce,jdbcType=VARCHAR},
+      VILLAGE_PLACE = #{villagePlace,jdbcType=VARCHAR},
+      VILLAGE_KEYWORD = #{villageKeyword,jdbcType=VARCHAR},
+      VILLAGE_MAP = #{villageMap,jdbcType=VARCHAR},
+      VILLAGE_TRAFFIC = #{villageTraffic,jdbcType=VARCHAR},
+      VILLAGE_TEXT = #{villageText,jdbcType=LONGVARCHAR}
+    where VILLAGE_ID = #{villageId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="nsu.edu.qingcheng.bean.Village">
+    update village
+    set VILLAGE_NAME = #{villageName,jdbcType=VARCHAR},
+      VILLAGE_PIC = #{villagePic,jdbcType=VARCHAR},
+      VILLAGE_INTRODUCE = #{villageIntroduce,jdbcType=VARCHAR},
+      VILLAGE_PLACE = #{villagePlace,jdbcType=VARCHAR},
+      VILLAGE_KEYWORD = #{villageKeyword,jdbcType=VARCHAR},
+      VILLAGE_MAP = #{villageMap,jdbcType=VARCHAR},
+      VILLAGE_TRAFFIC = #{villageTraffic,jdbcType=VARCHAR}
+    where VILLAGE_ID = #{villageId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="nsu.edu.qingcheng.dao.ScenicMapper">
+  <resultMap id="BaseResultMap" type="nsu.edu.qingcheng.bean.Scenic">
+    <id column="SCENIC_ID" jdbcType="INTEGER" property="scenicId" />
+    <result column="MENUSCENIC_ID" jdbcType="INTEGER" property="menuscenicId" />
+    <result column="VILLAGE_ID" jdbcType="INTEGER" property="villageId" />
+    <result column="SCENIC_NAME" jdbcType="VARCHAR" property="scenicName" />
+    <result column="SCENIC_INTRODUCE" jdbcType="VARCHAR" property="scenicIntroduce" />
+    <result column="SCENIC_PIC" jdbcType="VARCHAR" property="scenicPic" />
+    <result column="SCENIC_KEYWORD" jdbcType="VARCHAR" property="scenicKeyword" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="nsu.edu.qingcheng.bean.Scenic">
+    <result column="SCENIC_TEXT" jdbcType="LONGVARCHAR" property="scenicText" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    SCENIC_ID, MENUSCENIC_ID, VILLAGE_ID, SCENIC_NAME, SCENIC_INTRODUCE, SCENIC_PIC, 
+    SCENIC_KEYWORD
+  </sql>
+  <sql id="Blob_Column_List">
+    SCENIC_TEXT
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="nsu.edu.qingcheng.bean.ScenicExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from scenic
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="nsu.edu.qingcheng.bean.ScenicExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from scenic
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from scenic
+    where SCENIC_ID = #{scenicId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from scenic
+    where SCENIC_ID = #{scenicId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="nsu.edu.qingcheng.bean.ScenicExample">
+    delete from scenic
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="nsu.edu.qingcheng.bean.Scenic">
+    insert into scenic (SCENIC_ID, MENUSCENIC_ID, VILLAGE_ID, 
+      SCENIC_NAME, SCENIC_INTRODUCE, SCENIC_PIC, 
+      SCENIC_KEYWORD, SCENIC_TEXT)
+    values (#{scenicId,jdbcType=INTEGER}, #{menuscenicId,jdbcType=INTEGER}, #{villageId,jdbcType=INTEGER}, 
+      #{scenicName,jdbcType=VARCHAR}, #{scenicIntroduce,jdbcType=VARCHAR}, #{scenicPic,jdbcType=VARCHAR}, 
+      #{scenicKeyword,jdbcType=VARCHAR}, #{scenicText,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="nsu.edu.qingcheng.bean.Scenic">
+    insert into scenic
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="scenicId != null">
+        SCENIC_ID,
+      </if>
+      <if test="menuscenicId != null">
+        MENUSCENIC_ID,
+      </if>
+      <if test="villageId != null">
+        VILLAGE_ID,
+      </if>
+      <if test="scenicName != null">
+        SCENIC_NAME,
+      </if>
+      <if test="scenicIntroduce != null">
+        SCENIC_INTRODUCE,
+      </if>
+      <if test="scenicPic != null">
+        SCENIC_PIC,
+      </if>
+      <if test="scenicKeyword != null">
+        SCENIC_KEYWORD,
+      </if>
+      <if test="scenicText != null">
+        SCENIC_TEXT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="scenicId != null">
+        #{scenicId,jdbcType=INTEGER},
+      </if>
+      <if test="menuscenicId != null">
+        #{menuscenicId,jdbcType=INTEGER},
+      </if>
+      <if test="villageId != null">
+        #{villageId,jdbcType=INTEGER},
+      </if>
+      <if test="scenicName != null">
+        #{scenicName,jdbcType=VARCHAR},
+      </if>
+      <if test="scenicIntroduce != null">
+        #{scenicIntroduce,jdbcType=VARCHAR},
+      </if>
+      <if test="scenicPic != null">
+        #{scenicPic,jdbcType=VARCHAR},
+      </if>
+      <if test="scenicKeyword != null">
+        #{scenicKeyword,jdbcType=VARCHAR},
+      </if>
+      <if test="scenicText != null">
+        #{scenicText,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="nsu.edu.qingcheng.bean.ScenicExample" resultType="java.lang.Long">
+    select count(*) from scenic
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update scenic
+    <set>
+      <if test="record.scenicId != null">
+        SCENIC_ID = #{record.scenicId,jdbcType=INTEGER},
+      </if>
+      <if test="record.menuscenicId != null">
+        MENUSCENIC_ID = #{record.menuscenicId,jdbcType=INTEGER},
+      </if>
+      <if test="record.villageId != null">
+        VILLAGE_ID = #{record.villageId,jdbcType=INTEGER},
+      </if>
+      <if test="record.scenicName != null">
+        SCENIC_NAME = #{record.scenicName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.scenicIntroduce != null">
+        SCENIC_INTRODUCE = #{record.scenicIntroduce,jdbcType=VARCHAR},
+      </if>
+      <if test="record.scenicPic != null">
+        SCENIC_PIC = #{record.scenicPic,jdbcType=VARCHAR},
+      </if>
+      <if test="record.scenicKeyword != null">
+        SCENIC_KEYWORD = #{record.scenicKeyword,jdbcType=VARCHAR},
+      </if>
+      <if test="record.scenicText != null">
+        SCENIC_TEXT = #{record.scenicText,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update scenic
+    set SCENIC_ID = #{record.scenicId,jdbcType=INTEGER},
+      MENUSCENIC_ID = #{record.menuscenicId,jdbcType=INTEGER},
+      VILLAGE_ID = #{record.villageId,jdbcType=INTEGER},
+      SCENIC_NAME = #{record.scenicName,jdbcType=VARCHAR},
+      SCENIC_INTRODUCE = #{record.scenicIntroduce,jdbcType=VARCHAR},
+      SCENIC_PIC = #{record.scenicPic,jdbcType=VARCHAR},
+      SCENIC_KEYWORD = #{record.scenicKeyword,jdbcType=VARCHAR},
+      SCENIC_TEXT = #{record.scenicText,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update scenic
+    set SCENIC_ID = #{record.scenicId,jdbcType=INTEGER},
+      MENUSCENIC_ID = #{record.menuscenicId,jdbcType=INTEGER},
+      VILLAGE_ID = #{record.villageId,jdbcType=INTEGER},
+      SCENIC_NAME = #{record.scenicName,jdbcType=VARCHAR},
+      SCENIC_INTRODUCE = #{record.scenicIntroduce,jdbcType=VARCHAR},
+      SCENIC_PIC = #{record.scenicPic,jdbcType=VARCHAR},
+      SCENIC_KEYWORD = #{record.scenicKeyword,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="nsu.edu.qingcheng.bean.Scenic">
+    update scenic
+    <set>
+      <if test="menuscenicId != null">
+        MENUSCENIC_ID = #{menuscenicId,jdbcType=INTEGER},
+      </if>
+      <if test="villageId != null">
+        VILLAGE_ID = #{villageId,jdbcType=INTEGER},
+      </if>
+      <if test="scenicName != null">
+        SCENIC_NAME = #{scenicName,jdbcType=VARCHAR},
+      </if>
+      <if test="scenicIntroduce != null">
+        SCENIC_INTRODUCE = #{scenicIntroduce,jdbcType=VARCHAR},
+      </if>
+      <if test="scenicPic != null">
+        SCENIC_PIC = #{scenicPic,jdbcType=VARCHAR},
+      </if>
+      <if test="scenicKeyword != null">
+        SCENIC_KEYWORD = #{scenicKeyword,jdbcType=VARCHAR},
+      </if>
+      <if test="scenicText != null">
+        SCENIC_TEXT = #{scenicText,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where SCENIC_ID = #{scenicId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="nsu.edu.qingcheng.bean.Scenic">
+    update scenic
+    set MENUSCENIC_ID = #{menuscenicId,jdbcType=INTEGER},
+      VILLAGE_ID = #{villageId,jdbcType=INTEGER},
+      SCENIC_NAME = #{scenicName,jdbcType=VARCHAR},
+      SCENIC_INTRODUCE = #{scenicIntroduce,jdbcType=VARCHAR},
+      SCENIC_PIC = #{scenicPic,jdbcType=VARCHAR},
+      SCENIC_KEYWORD = #{scenicKeyword,jdbcType=VARCHAR},
+      SCENIC_TEXT = #{scenicText,jdbcType=LONGVARCHAR}
+    where SCENIC_ID = #{scenicId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="nsu.edu.qingcheng.bean.Scenic">
+    update scenic
+    set MENUSCENIC_ID = #{menuscenicId,jdbcType=INTEGER},
+      VILLAGE_ID = #{villageId,jdbcType=INTEGER},
+      SCENIC_NAME = #{scenicName,jdbcType=VARCHAR},
+      SCENIC_INTRODUCE = #{scenicIntroduce,jdbcType=VARCHAR},
+      SCENIC_PIC = #{scenicPic,jdbcType=VARCHAR},
+      SCENIC_KEYWORD = #{scenicKeyword,jdbcType=VARCHAR}
+    where SCENIC_ID = #{scenicId,jdbcType=INTEGER}
+  </update>
+</mapper>

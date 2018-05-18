@@ -1,0 +1,555 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="nsu.edu.qingcheng.dao.ResidenceMapper">
+  <resultMap id="BaseResultMap" type="nsu.edu.qingcheng.bean.Residence">
+    <id column="RESIDENCE_ID" jdbcType="INTEGER" property="residenceId" />
+    <result column="VILLAGE_ID" jdbcType="INTEGER" property="villageId" />
+    <result column="MENU_ID" jdbcType="INTEGER" property="menuId" />
+    <result column="RESIDENCE_NAME" jdbcType="VARCHAR" property="residenceName" />
+    <result column="RESIDENCE_PIC" jdbcType="VARCHAR" property="residencePic" />
+    <result column="RESIDENCE_INTRODUCE" jdbcType="VARCHAR" property="residenceIntroduce" />
+    <result column="RESIDENCE_MAP" jdbcType="VARCHAR" property="residenceMap" />
+    <result column="RESIDENCE_TIME" jdbcType="VARCHAR" property="residenceTime" />
+    <result column="RESIDENCE_PRICE" jdbcType="INTEGER" property="residencePrice" />
+    <result column="RESIDENCE_LEVEL" jdbcType="INTEGER" property="residenceLevel" />
+    <result column="RESIDENCE_CATEGORY" jdbcType="INTEGER" property="residenceCategory" />
+    <result column="RESIDENCE_LOCTYPE" jdbcType="INTEGER" property="residenceLoctype" />
+    <result column="RESIDENCE_LOGOs" jdbcType="INTEGER" property="residenceLogos" />
+    <result column="RESIDENCE_RECOMMEND" jdbcType="REAL" property="residenceRecommend" />
+    <result column="RESIDENCE_PHONE" jdbcType="VARCHAR" property="residencePhone" />
+    <result column="RESIDENCE_BANK" jdbcType="VARCHAR" property="residenceBank" />
+    <result column="RESIDENCE_HOSPITAL" jdbcType="VARCHAR" property="residenceHospital" />
+    <result column="RESIDENCE_PLACE" jdbcType="VARCHAR" property="residencePlace" />
+    <result column="RESIDENCE_FACITITY" jdbcType="VARCHAR" property="residenceFacitity" />
+    <result column="RESIDENCE_SCORE" jdbcType="REAL" property="residenceScore" />
+    <result column="RESIDENCE_LOGO" jdbcType="VARCHAR" property="residenceLogo" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="nsu.edu.qingcheng.bean.Residence">
+    <result column="RESIDENCE_TEXT" jdbcType="LONGVARCHAR" property="residenceText" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    RESIDENCE_ID, VILLAGE_ID, MENU_ID, RESIDENCE_NAME, RESIDENCE_PIC, RESIDENCE_INTRODUCE, 
+    RESIDENCE_MAP, RESIDENCE_TIME, RESIDENCE_PRICE, RESIDENCE_LEVEL, RESIDENCE_CATEGORY, 
+    RESIDENCE_LOCTYPE, RESIDENCE_LOGOs, RESIDENCE_RECOMMEND, RESIDENCE_PHONE, RESIDENCE_BANK, 
+    RESIDENCE_HOSPITAL, RESIDENCE_PLACE, RESIDENCE_FACITITY, RESIDENCE_SCORE, RESIDENCE_LOGO
+  </sql>
+  <sql id="Blob_Column_List">
+    RESIDENCE_TEXT
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="nsu.edu.qingcheng.bean.ResidenceExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from residence
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="nsu.edu.qingcheng.bean.ResidenceExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from residence
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from residence
+    where RESIDENCE_ID = #{residenceId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from residence
+    where RESIDENCE_ID = #{residenceId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="nsu.edu.qingcheng.bean.ResidenceExample">
+    delete from residence
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="nsu.edu.qingcheng.bean.Residence">
+    insert into residence (RESIDENCE_ID, VILLAGE_ID, MENU_ID, 
+      RESIDENCE_NAME, RESIDENCE_PIC, RESIDENCE_INTRODUCE, 
+      RESIDENCE_MAP, RESIDENCE_TIME, RESIDENCE_PRICE, 
+      RESIDENCE_LEVEL, RESIDENCE_CATEGORY, RESIDENCE_LOCTYPE, 
+      RESIDENCE_LOGOs, RESIDENCE_RECOMMEND, RESIDENCE_PHONE, 
+      RESIDENCE_BANK, RESIDENCE_HOSPITAL, RESIDENCE_PLACE, 
+      RESIDENCE_FACITITY, RESIDENCE_SCORE, RESIDENCE_LOGO, 
+      RESIDENCE_TEXT)
+    values (#{residenceId,jdbcType=INTEGER}, #{villageId,jdbcType=INTEGER}, #{menuId,jdbcType=INTEGER}, 
+      #{residenceName,jdbcType=VARCHAR}, #{residencePic,jdbcType=VARCHAR}, #{residenceIntroduce,jdbcType=VARCHAR}, 
+      #{residenceMap,jdbcType=VARCHAR}, #{residenceTime,jdbcType=VARCHAR}, #{residencePrice,jdbcType=INTEGER}, 
+      #{residenceLevel,jdbcType=INTEGER}, #{residenceCategory,jdbcType=INTEGER}, #{residenceLoctype,jdbcType=INTEGER}, 
+      #{residenceLogos,jdbcType=INTEGER}, #{residenceRecommend,jdbcType=REAL}, #{residencePhone,jdbcType=VARCHAR}, 
+      #{residenceBank,jdbcType=VARCHAR}, #{residenceHospital,jdbcType=VARCHAR}, #{residencePlace,jdbcType=VARCHAR}, 
+      #{residenceFacitity,jdbcType=VARCHAR}, #{residenceScore,jdbcType=REAL}, #{residenceLogo,jdbcType=VARCHAR}, 
+      #{residenceText,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="nsu.edu.qingcheng.bean.Residence">
+    insert into residence
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="residenceId != null">
+        RESIDENCE_ID,
+      </if>
+      <if test="villageId != null">
+        VILLAGE_ID,
+      </if>
+      <if test="menuId != null">
+        MENU_ID,
+      </if>
+      <if test="residenceName != null">
+        RESIDENCE_NAME,
+      </if>
+      <if test="residencePic != null">
+        RESIDENCE_PIC,
+      </if>
+      <if test="residenceIntroduce != null">
+        RESIDENCE_INTRODUCE,
+      </if>
+      <if test="residenceMap != null">
+        RESIDENCE_MAP,
+      </if>
+      <if test="residenceTime != null">
+        RESIDENCE_TIME,
+      </if>
+      <if test="residencePrice != null">
+        RESIDENCE_PRICE,
+      </if>
+      <if test="residenceLevel != null">
+        RESIDENCE_LEVEL,
+      </if>
+      <if test="residenceCategory != null">
+        RESIDENCE_CATEGORY,
+      </if>
+      <if test="residenceLoctype != null">
+        RESIDENCE_LOCTYPE,
+      </if>
+      <if test="residenceLogos != null">
+        RESIDENCE_LOGOs,
+      </if>
+      <if test="residenceRecommend != null">
+        RESIDENCE_RECOMMEND,
+      </if>
+      <if test="residencePhone != null">
+        RESIDENCE_PHONE,
+      </if>
+      <if test="residenceBank != null">
+        RESIDENCE_BANK,
+      </if>
+      <if test="residenceHospital != null">
+        RESIDENCE_HOSPITAL,
+      </if>
+      <if test="residencePlace != null">
+        RESIDENCE_PLACE,
+      </if>
+      <if test="residenceFacitity != null">
+        RESIDENCE_FACITITY,
+      </if>
+      <if test="residenceScore != null">
+        RESIDENCE_SCORE,
+      </if>
+      <if test="residenceLogo != null">
+        RESIDENCE_LOGO,
+      </if>
+      <if test="residenceText != null">
+        RESIDENCE_TEXT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="residenceId != null">
+        #{residenceId,jdbcType=INTEGER},
+      </if>
+      <if test="villageId != null">
+        #{villageId,jdbcType=INTEGER},
+      </if>
+      <if test="menuId != null">
+        #{menuId,jdbcType=INTEGER},
+      </if>
+      <if test="residenceName != null">
+        #{residenceName,jdbcType=VARCHAR},
+      </if>
+      <if test="residencePic != null">
+        #{residencePic,jdbcType=VARCHAR},
+      </if>
+      <if test="residenceIntroduce != null">
+        #{residenceIntroduce,jdbcType=VARCHAR},
+      </if>
+      <if test="residenceMap != null">
+        #{residenceMap,jdbcType=VARCHAR},
+      </if>
+      <if test="residenceTime != null">
+        #{residenceTime,jdbcType=VARCHAR},
+      </if>
+      <if test="residencePrice != null">
+        #{residencePrice,jdbcType=INTEGER},
+      </if>
+      <if test="residenceLevel != null">
+        #{residenceLevel,jdbcType=INTEGER},
+      </if>
+      <if test="residenceCategory != null">
+        #{residenceCategory,jdbcType=INTEGER},
+      </if>
+      <if test="residenceLoctype != null">
+        #{residenceLoctype,jdbcType=INTEGER},
+      </if>
+      <if test="residenceLogos != null">
+        #{residenceLogos,jdbcType=INTEGER},
+      </if>
+      <if test="residenceRecommend != null">
+        #{residenceRecommend,jdbcType=REAL},
+      </if>
+      <if test="residencePhone != null">
+        #{residencePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="residenceBank != null">
+        #{residenceBank,jdbcType=VARCHAR},
+      </if>
+      <if test="residenceHospital != null">
+        #{residenceHospital,jdbcType=VARCHAR},
+      </if>
+      <if test="residencePlace != null">
+        #{residencePlace,jdbcType=VARCHAR},
+      </if>
+      <if test="residenceFacitity != null">
+        #{residenceFacitity,jdbcType=VARCHAR},
+      </if>
+      <if test="residenceScore != null">
+        #{residenceScore,jdbcType=REAL},
+      </if>
+      <if test="residenceLogo != null">
+        #{residenceLogo,jdbcType=VARCHAR},
+      </if>
+      <if test="residenceText != null">
+        #{residenceText,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="nsu.edu.qingcheng.bean.ResidenceExample" resultType="java.lang.Long">
+    select count(*) from residence
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update residence
+    <set>
+      <if test="record.residenceId != null">
+        RESIDENCE_ID = #{record.residenceId,jdbcType=INTEGER},
+      </if>
+      <if test="record.villageId != null">
+        VILLAGE_ID = #{record.villageId,jdbcType=INTEGER},
+      </if>
+      <if test="record.menuId != null">
+        MENU_ID = #{record.menuId,jdbcType=INTEGER},
+      </if>
+      <if test="record.residenceName != null">
+        RESIDENCE_NAME = #{record.residenceName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.residencePic != null">
+        RESIDENCE_PIC = #{record.residencePic,jdbcType=VARCHAR},
+      </if>
+      <if test="record.residenceIntroduce != null">
+        RESIDENCE_INTRODUCE = #{record.residenceIntroduce,jdbcType=VARCHAR},
+      </if>
+      <if test="record.residenceMap != null">
+        RESIDENCE_MAP = #{record.residenceMap,jdbcType=VARCHAR},
+      </if>
+      <if test="record.residenceTime != null">
+        RESIDENCE_TIME = #{record.residenceTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.residencePrice != null">
+        RESIDENCE_PRICE = #{record.residencePrice,jdbcType=INTEGER},
+      </if>
+      <if test="record.residenceLevel != null">
+        RESIDENCE_LEVEL = #{record.residenceLevel,jdbcType=INTEGER},
+      </if>
+      <if test="record.residenceCategory != null">
+        RESIDENCE_CATEGORY = #{record.residenceCategory,jdbcType=INTEGER},
+      </if>
+      <if test="record.residenceLoctype != null">
+        RESIDENCE_LOCTYPE = #{record.residenceLoctype,jdbcType=INTEGER},
+      </if>
+      <if test="record.residenceLogos != null">
+        RESIDENCE_LOGOs = #{record.residenceLogos,jdbcType=INTEGER},
+      </if>
+      <if test="record.residenceRecommend != null">
+        RESIDENCE_RECOMMEND = #{record.residenceRecommend,jdbcType=REAL},
+      </if>
+      <if test="record.residencePhone != null">
+        RESIDENCE_PHONE = #{record.residencePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.residenceBank != null">
+        RESIDENCE_BANK = #{record.residenceBank,jdbcType=VARCHAR},
+      </if>
+      <if test="record.residenceHospital != null">
+        RESIDENCE_HOSPITAL = #{record.residenceHospital,jdbcType=VARCHAR},
+      </if>
+      <if test="record.residencePlace != null">
+        RESIDENCE_PLACE = #{record.residencePlace,jdbcType=VARCHAR},
+      </if>
+      <if test="record.residenceFacitity != null">
+        RESIDENCE_FACITITY = #{record.residenceFacitity,jdbcType=VARCHAR},
+      </if>
+      <if test="record.residenceScore != null">
+        RESIDENCE_SCORE = #{record.residenceScore,jdbcType=REAL},
+      </if>
+      <if test="record.residenceLogo != null">
+        RESIDENCE_LOGO = #{record.residenceLogo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.residenceText != null">
+        RESIDENCE_TEXT = #{record.residenceText,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update residence
+    set RESIDENCE_ID = #{record.residenceId,jdbcType=INTEGER},
+      VILLAGE_ID = #{record.villageId,jdbcType=INTEGER},
+      MENU_ID = #{record.menuId,jdbcType=INTEGER},
+      RESIDENCE_NAME = #{record.residenceName,jdbcType=VARCHAR},
+      RESIDENCE_PIC = #{record.residencePic,jdbcType=VARCHAR},
+      RESIDENCE_INTRODUCE = #{record.residenceIntroduce,jdbcType=VARCHAR},
+      RESIDENCE_MAP = #{record.residenceMap,jdbcType=VARCHAR},
+      RESIDENCE_TIME = #{record.residenceTime,jdbcType=VARCHAR},
+      RESIDENCE_PRICE = #{record.residencePrice,jdbcType=INTEGER},
+      RESIDENCE_LEVEL = #{record.residenceLevel,jdbcType=INTEGER},
+      RESIDENCE_CATEGORY = #{record.residenceCategory,jdbcType=INTEGER},
+      RESIDENCE_LOCTYPE = #{record.residenceLoctype,jdbcType=INTEGER},
+      RESIDENCE_LOGOs = #{record.residenceLogos,jdbcType=INTEGER},
+      RESIDENCE_RECOMMEND = #{record.residenceRecommend,jdbcType=REAL},
+      RESIDENCE_PHONE = #{record.residencePhone,jdbcType=VARCHAR},
+      RESIDENCE_BANK = #{record.residenceBank,jdbcType=VARCHAR},
+      RESIDENCE_HOSPITAL = #{record.residenceHospital,jdbcType=VARCHAR},
+      RESIDENCE_PLACE = #{record.residencePlace,jdbcType=VARCHAR},
+      RESIDENCE_FACITITY = #{record.residenceFacitity,jdbcType=VARCHAR},
+      RESIDENCE_SCORE = #{record.residenceScore,jdbcType=REAL},
+      RESIDENCE_LOGO = #{record.residenceLogo,jdbcType=VARCHAR},
+      RESIDENCE_TEXT = #{record.residenceText,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update residence
+    set RESIDENCE_ID = #{record.residenceId,jdbcType=INTEGER},
+      VILLAGE_ID = #{record.villageId,jdbcType=INTEGER},
+      MENU_ID = #{record.menuId,jdbcType=INTEGER},
+      RESIDENCE_NAME = #{record.residenceName,jdbcType=VARCHAR},
+      RESIDENCE_PIC = #{record.residencePic,jdbcType=VARCHAR},
+      RESIDENCE_INTRODUCE = #{record.residenceIntroduce,jdbcType=VARCHAR},
+      RESIDENCE_MAP = #{record.residenceMap,jdbcType=VARCHAR},
+      RESIDENCE_TIME = #{record.residenceTime,jdbcType=VARCHAR},
+      RESIDENCE_PRICE = #{record.residencePrice,jdbcType=INTEGER},
+      RESIDENCE_LEVEL = #{record.residenceLevel,jdbcType=INTEGER},
+      RESIDENCE_CATEGORY = #{record.residenceCategory,jdbcType=INTEGER},
+      RESIDENCE_LOCTYPE = #{record.residenceLoctype,jdbcType=INTEGER},
+      RESIDENCE_LOGOs = #{record.residenceLogos,jdbcType=INTEGER},
+      RESIDENCE_RECOMMEND = #{record.residenceRecommend,jdbcType=REAL},
+      RESIDENCE_PHONE = #{record.residencePhone,jdbcType=VARCHAR},
+      RESIDENCE_BANK = #{record.residenceBank,jdbcType=VARCHAR},
+      RESIDENCE_HOSPITAL = #{record.residenceHospital,jdbcType=VARCHAR},
+      RESIDENCE_PLACE = #{record.residencePlace,jdbcType=VARCHAR},
+      RESIDENCE_FACITITY = #{record.residenceFacitity,jdbcType=VARCHAR},
+      RESIDENCE_SCORE = #{record.residenceScore,jdbcType=REAL},
+      RESIDENCE_LOGO = #{record.residenceLogo,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="nsu.edu.qingcheng.bean.Residence">
+    update residence
+    <set>
+      <if test="villageId != null">
+        VILLAGE_ID = #{villageId,jdbcType=INTEGER},
+      </if>
+      <if test="menuId != null">
+        MENU_ID = #{menuId,jdbcType=INTEGER},
+      </if>
+      <if test="residenceName != null">
+        RESIDENCE_NAME = #{residenceName,jdbcType=VARCHAR},
+      </if>
+      <if test="residencePic != null">
+        RESIDENCE_PIC = #{residencePic,jdbcType=VARCHAR},
+      </if>
+      <if test="residenceIntroduce != null">
+        RESIDENCE_INTRODUCE = #{residenceIntroduce,jdbcType=VARCHAR},
+      </if>
+      <if test="residenceMap != null">
+        RESIDENCE_MAP = #{residenceMap,jdbcType=VARCHAR},
+      </if>
+      <if test="residenceTime != null">
+        RESIDENCE_TIME = #{residenceTime,jdbcType=VARCHAR},
+      </if>
+      <if test="residencePrice != null">
+        RESIDENCE_PRICE = #{residencePrice,jdbcType=INTEGER},
+      </if>
+      <if test="residenceLevel != null">
+        RESIDENCE_LEVEL = #{residenceLevel,jdbcType=INTEGER},
+      </if>
+      <if test="residenceCategory != null">
+        RESIDENCE_CATEGORY = #{residenceCategory,jdbcType=INTEGER},
+      </if>
+      <if test="residenceLoctype != null">
+        RESIDENCE_LOCTYPE = #{residenceLoctype,jdbcType=INTEGER},
+      </if>
+      <if test="residenceLogos != null">
+        RESIDENCE_LOGOs = #{residenceLogos,jdbcType=INTEGER},
+      </if>
+      <if test="residenceRecommend != null">
+        RESIDENCE_RECOMMEND = #{residenceRecommend,jdbcType=REAL},
+      </if>
+      <if test="residencePhone != null">
+        RESIDENCE_PHONE = #{residencePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="residenceBank != null">
+        RESIDENCE_BANK = #{residenceBank,jdbcType=VARCHAR},
+      </if>
+      <if test="residenceHospital != null">
+        RESIDENCE_HOSPITAL = #{residenceHospital,jdbcType=VARCHAR},
+      </if>
+      <if test="residencePlace != null">
+        RESIDENCE_PLACE = #{residencePlace,jdbcType=VARCHAR},
+      </if>
+      <if test="residenceFacitity != null">
+        RESIDENCE_FACITITY = #{residenceFacitity,jdbcType=VARCHAR},
+      </if>
+      <if test="residenceScore != null">
+        RESIDENCE_SCORE = #{residenceScore,jdbcType=REAL},
+      </if>
+      <if test="residenceLogo != null">
+        RESIDENCE_LOGO = #{residenceLogo,jdbcType=VARCHAR},
+      </if>
+      <if test="residenceText != null">
+        RESIDENCE_TEXT = #{residenceText,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where RESIDENCE_ID = #{residenceId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="nsu.edu.qingcheng.bean.Residence">
+    update residence
+    set VILLAGE_ID = #{villageId,jdbcType=INTEGER},
+      MENU_ID = #{menuId,jdbcType=INTEGER},
+      RESIDENCE_NAME = #{residenceName,jdbcType=VARCHAR},
+      RESIDENCE_PIC = #{residencePic,jdbcType=VARCHAR},
+      RESIDENCE_INTRODUCE = #{residenceIntroduce,jdbcType=VARCHAR},
+      RESIDENCE_MAP = #{residenceMap,jdbcType=VARCHAR},
+      RESIDENCE_TIME = #{residenceTime,jdbcType=VARCHAR},
+      RESIDENCE_PRICE = #{residencePrice,jdbcType=INTEGER},
+      RESIDENCE_LEVEL = #{residenceLevel,jdbcType=INTEGER},
+      RESIDENCE_CATEGORY = #{residenceCategory,jdbcType=INTEGER},
+      RESIDENCE_LOCTYPE = #{residenceLoctype,jdbcType=INTEGER},
+      RESIDENCE_LOGOs = #{residenceLogos,jdbcType=INTEGER},
+      RESIDENCE_RECOMMEND = #{residenceRecommend,jdbcType=REAL},
+      RESIDENCE_PHONE = #{residencePhone,jdbcType=VARCHAR},
+      RESIDENCE_BANK = #{residenceBank,jdbcType=VARCHAR},
+      RESIDENCE_HOSPITAL = #{residenceHospital,jdbcType=VARCHAR},
+      RESIDENCE_PLACE = #{residencePlace,jdbcType=VARCHAR},
+      RESIDENCE_FACITITY = #{residenceFacitity,jdbcType=VARCHAR},
+      RESIDENCE_SCORE = #{residenceScore,jdbcType=REAL},
+      RESIDENCE_LOGO = #{residenceLogo,jdbcType=VARCHAR},
+      RESIDENCE_TEXT = #{residenceText,jdbcType=LONGVARCHAR}
+    where RESIDENCE_ID = #{residenceId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="nsu.edu.qingcheng.bean.Residence">
+    update residence
+    set VILLAGE_ID = #{villageId,jdbcType=INTEGER},
+      MENU_ID = #{menuId,jdbcType=INTEGER},
+      RESIDENCE_NAME = #{residenceName,jdbcType=VARCHAR},
+      RESIDENCE_PIC = #{residencePic,jdbcType=VARCHAR},
+      RESIDENCE_INTRODUCE = #{residenceIntroduce,jdbcType=VARCHAR},
+      RESIDENCE_MAP = #{residenceMap,jdbcType=VARCHAR},
+      RESIDENCE_TIME = #{residenceTime,jdbcType=VARCHAR},
+      RESIDENCE_PRICE = #{residencePrice,jdbcType=INTEGER},
+      RESIDENCE_LEVEL = #{residenceLevel,jdbcType=INTEGER},
+      RESIDENCE_CATEGORY = #{residenceCategory,jdbcType=INTEGER},
+      RESIDENCE_LOCTYPE = #{residenceLoctype,jdbcType=INTEGER},
+      RESIDENCE_LOGOs = #{residenceLogos,jdbcType=INTEGER},
+      RESIDENCE_RECOMMEND = #{residenceRecommend,jdbcType=REAL},
+      RESIDENCE_PHONE = #{residencePhone,jdbcType=VARCHAR},
+      RESIDENCE_BANK = #{residenceBank,jdbcType=VARCHAR},
+      RESIDENCE_HOSPITAL = #{residenceHospital,jdbcType=VARCHAR},
+      RESIDENCE_PLACE = #{residencePlace,jdbcType=VARCHAR},
+      RESIDENCE_FACITITY = #{residenceFacitity,jdbcType=VARCHAR},
+      RESIDENCE_SCORE = #{residenceScore,jdbcType=REAL},
+      RESIDENCE_LOGO = #{residenceLogo,jdbcType=VARCHAR}
+    where RESIDENCE_ID = #{residenceId,jdbcType=INTEGER}
+  </update>
+</mapper>

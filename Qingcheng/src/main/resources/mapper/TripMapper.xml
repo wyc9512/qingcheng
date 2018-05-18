@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="nsu.edu.qingcheng.dao.TripMapper">
+  <resultMap id="BaseResultMap" type="nsu.edu.qingcheng.bean.Trip">
+    <id column="TRIP_ID" jdbcType="INTEGER" property="tripId" />
+    <result column="TRIP_NAME" jdbcType="VARCHAR" property="tripName" />
+    <result column="TRIP_PIC" jdbcType="VARCHAR" property="tripPic" />
+    <result column="TRIP_INTRODUCE" jdbcType="VARCHAR" property="tripIntroduce" />
+    <result column="TRIP_KEYWORD" jdbcType="VARCHAR" property="tripKeyword" />
+    <result column="TRIP_MAP" jdbcType="VARCHAR" property="tripMap" />
+    <result column="TRIP_TIME" jdbcType="DATE" property="tripTime" />
+    <result column="TRIP_TEXT_SRC" jdbcType="VARCHAR" property="tripTextSrc" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="nsu.edu.qingcheng.bean.Trip">
+    <result column="TRIP_TEXT" jdbcType="LONGVARCHAR" property="tripText" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    TRIP_ID, TRIP_NAME, TRIP_PIC, TRIP_INTRODUCE, TRIP_KEYWORD, TRIP_MAP, TRIP_TIME, 
+    TRIP_TEXT_SRC
+  </sql>
+  <sql id="Blob_Column_List">
+    TRIP_TEXT
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="nsu.edu.qingcheng.bean.TripExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from trip
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="nsu.edu.qingcheng.bean.TripExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from trip
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from trip
+    where TRIP_ID = #{tripId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from trip
+    where TRIP_ID = #{tripId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="nsu.edu.qingcheng.bean.TripExample">
+    delete from trip
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="nsu.edu.qingcheng.bean.Trip">
+    insert into trip (TRIP_ID, TRIP_NAME, TRIP_PIC, 
+      TRIP_INTRODUCE, TRIP_KEYWORD, TRIP_MAP, 
+      TRIP_TIME, TRIP_TEXT_SRC, TRIP_TEXT
+      )
+    values (#{tripId,jdbcType=INTEGER}, #{tripName,jdbcType=VARCHAR}, #{tripPic,jdbcType=VARCHAR}, 
+      #{tripIntroduce,jdbcType=VARCHAR}, #{tripKeyword,jdbcType=VARCHAR}, #{tripMap,jdbcType=VARCHAR}, 
+      #{tripTime,jdbcType=DATE}, #{tripTextSrc,jdbcType=VARCHAR}, #{tripText,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="nsu.edu.qingcheng.bean.Trip">
+    insert into trip
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="tripId != null">
+        TRIP_ID,
+      </if>
+      <if test="tripName != null">
+        TRIP_NAME,
+      </if>
+      <if test="tripPic != null">
+        TRIP_PIC,
+      </if>
+      <if test="tripIntroduce != null">
+        TRIP_INTRODUCE,
+      </if>
+      <if test="tripKeyword != null">
+        TRIP_KEYWORD,
+      </if>
+      <if test="tripMap != null">
+        TRIP_MAP,
+      </if>
+      <if test="tripTime != null">
+        TRIP_TIME,
+      </if>
+      <if test="tripTextSrc != null">
+        TRIP_TEXT_SRC,
+      </if>
+      <if test="tripText != null">
+        TRIP_TEXT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="tripId != null">
+        #{tripId,jdbcType=INTEGER},
+      </if>
+      <if test="tripName != null">
+        #{tripName,jdbcType=VARCHAR},
+      </if>
+      <if test="tripPic != null">
+        #{tripPic,jdbcType=VARCHAR},
+      </if>
+      <if test="tripIntroduce != null">
+        #{tripIntroduce,jdbcType=VARCHAR},
+      </if>
+      <if test="tripKeyword != null">
+        #{tripKeyword,jdbcType=VARCHAR},
+      </if>
+      <if test="tripMap != null">
+        #{tripMap,jdbcType=VARCHAR},
+      </if>
+      <if test="tripTime != null">
+        #{tripTime,jdbcType=DATE},
+      </if>
+      <if test="tripTextSrc != null">
+        #{tripTextSrc,jdbcType=VARCHAR},
+      </if>
+      <if test="tripText != null">
+        #{tripText,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="nsu.edu.qingcheng.bean.TripExample" resultType="java.lang.Long">
+    select count(*) from trip
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update trip
+    <set>
+      <if test="record.tripId != null">
+        TRIP_ID = #{record.tripId,jdbcType=INTEGER},
+      </if>
+      <if test="record.tripName != null">
+        TRIP_NAME = #{record.tripName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tripPic != null">
+        TRIP_PIC = #{record.tripPic,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tripIntroduce != null">
+        TRIP_INTRODUCE = #{record.tripIntroduce,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tripKeyword != null">
+        TRIP_KEYWORD = #{record.tripKeyword,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tripMap != null">
+        TRIP_MAP = #{record.tripMap,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tripTime != null">
+        TRIP_TIME = #{record.tripTime,jdbcType=DATE},
+      </if>
+      <if test="record.tripTextSrc != null">
+        TRIP_TEXT_SRC = #{record.tripTextSrc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tripText != null">
+        TRIP_TEXT = #{record.tripText,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update trip
+    set TRIP_ID = #{record.tripId,jdbcType=INTEGER},
+      TRIP_NAME = #{record.tripName,jdbcType=VARCHAR},
+      TRIP_PIC = #{record.tripPic,jdbcType=VARCHAR},
+      TRIP_INTRODUCE = #{record.tripIntroduce,jdbcType=VARCHAR},
+      TRIP_KEYWORD = #{record.tripKeyword,jdbcType=VARCHAR},
+      TRIP_MAP = #{record.tripMap,jdbcType=VARCHAR},
+      TRIP_TIME = #{record.tripTime,jdbcType=DATE},
+      TRIP_TEXT_SRC = #{record.tripTextSrc,jdbcType=VARCHAR},
+      TRIP_TEXT = #{record.tripText,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update trip
+    set TRIP_ID = #{record.tripId,jdbcType=INTEGER},
+      TRIP_NAME = #{record.tripName,jdbcType=VARCHAR},
+      TRIP_PIC = #{record.tripPic,jdbcType=VARCHAR},
+      TRIP_INTRODUCE = #{record.tripIntroduce,jdbcType=VARCHAR},
+      TRIP_KEYWORD = #{record.tripKeyword,jdbcType=VARCHAR},
+      TRIP_MAP = #{record.tripMap,jdbcType=VARCHAR},
+      TRIP_TIME = #{record.tripTime,jdbcType=DATE},
+      TRIP_TEXT_SRC = #{record.tripTextSrc,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="nsu.edu.qingcheng.bean.Trip">
+    update trip
+    <set>
+      <if test="tripName != null">
+        TRIP_NAME = #{tripName,jdbcType=VARCHAR},
+      </if>
+      <if test="tripPic != null">
+        TRIP_PIC = #{tripPic,jdbcType=VARCHAR},
+      </if>
+      <if test="tripIntroduce != null">
+        TRIP_INTRODUCE = #{tripIntroduce,jdbcType=VARCHAR},
+      </if>
+      <if test="tripKeyword != null">
+        TRIP_KEYWORD = #{tripKeyword,jdbcType=VARCHAR},
+      </if>
+      <if test="tripMap != null">
+        TRIP_MAP = #{tripMap,jdbcType=VARCHAR},
+      </if>
+      <if test="tripTime != null">
+        TRIP_TIME = #{tripTime,jdbcType=DATE},
+      </if>
+      <if test="tripTextSrc != null">
+        TRIP_TEXT_SRC = #{tripTextSrc,jdbcType=VARCHAR},
+      </if>
+      <if test="tripText != null">
+        TRIP_TEXT = #{tripText,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where TRIP_ID = #{tripId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="nsu.edu.qingcheng.bean.Trip">
+    update trip
+    set TRIP_NAME = #{tripName,jdbcType=VARCHAR},
+      TRIP_PIC = #{tripPic,jdbcType=VARCHAR},
+      TRIP_INTRODUCE = #{tripIntroduce,jdbcType=VARCHAR},
+      TRIP_KEYWORD = #{tripKeyword,jdbcType=VARCHAR},
+      TRIP_MAP = #{tripMap,jdbcType=VARCHAR},
+      TRIP_TIME = #{tripTime,jdbcType=DATE},
+      TRIP_TEXT_SRC = #{tripTextSrc,jdbcType=VARCHAR},
+      TRIP_TEXT = #{tripText,jdbcType=LONGVARCHAR}
+    where TRIP_ID = #{tripId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="nsu.edu.qingcheng.bean.Trip">
+    update trip
+    set TRIP_NAME = #{tripName,jdbcType=VARCHAR},
+      TRIP_PIC = #{tripPic,jdbcType=VARCHAR},
+      TRIP_INTRODUCE = #{tripIntroduce,jdbcType=VARCHAR},
+      TRIP_KEYWORD = #{tripKeyword,jdbcType=VARCHAR},
+      TRIP_MAP = #{tripMap,jdbcType=VARCHAR},
+      TRIP_TIME = #{tripTime,jdbcType=DATE},
+      TRIP_TEXT_SRC = #{tripTextSrc,jdbcType=VARCHAR}
+    where TRIP_ID = #{tripId,jdbcType=INTEGER}
+  </update>
+</mapper>

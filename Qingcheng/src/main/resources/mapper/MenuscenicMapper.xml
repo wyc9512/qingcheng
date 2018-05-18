@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="nsu.edu.qingcheng.dao.MenuscenicMapper">
+  <resultMap id="BaseResultMap" type="nsu.edu.qingcheng.bean.Menuscenic">
+    <id column="MENUSCENIC_ID" jdbcType="INTEGER" property="menuscenicId" />
+    <result column="MENUSCENIC_NAME" jdbcType="VARCHAR" property="menuscenicName" />
+    <result column="MENUSCENIC_INTRODUCE" jdbcType="VARCHAR" property="menuscenicIntroduce" />
+    <result column="MENUSCENIC_PIC" jdbcType="VARCHAR" property="menuscenicPic" />
+    <result column="MENUSCENIC_PRICE" jdbcType="REAL" property="menuscenicPrice" />
+    <result column="MENUSCENIC_PLACE" jdbcType="VARCHAR" property="menuscenicPlace" />
+    <result column="MENUSCENIC_TIME" jdbcType="VARCHAR" property="menuscenicTime" />
+    <result column="MENUSCENIC_POLICY" jdbcType="VARCHAR" property="menuscenicPolicy" />
+    <result column="MENUSCENIC_TRAFFIC" jdbcType="VARCHAR" property="menuscenicTraffic" />
+    <result column="MENUSCENIC_QR_CODE" jdbcType="VARCHAR" property="menuscenicQrCode" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    MENUSCENIC_ID, MENUSCENIC_NAME, MENUSCENIC_INTRODUCE, MENUSCENIC_PIC, MENUSCENIC_PRICE, 
+    MENUSCENIC_PLACE, MENUSCENIC_TIME, MENUSCENIC_POLICY, MENUSCENIC_TRAFFIC, MENUSCENIC_QR_CODE
+  </sql>
+  <select id="selectByExample" parameterType="nsu.edu.qingcheng.bean.MenuscenicExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from menuscenic
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from menuscenic
+    where MENUSCENIC_ID = #{menuscenicId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from menuscenic
+    where MENUSCENIC_ID = #{menuscenicId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="nsu.edu.qingcheng.bean.MenuscenicExample">
+    delete from menuscenic
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="nsu.edu.qingcheng.bean.Menuscenic">
+    insert into menuscenic (MENUSCENIC_ID, MENUSCENIC_NAME, MENUSCENIC_INTRODUCE, 
+      MENUSCENIC_PIC, MENUSCENIC_PRICE, MENUSCENIC_PLACE, 
+      MENUSCENIC_TIME, MENUSCENIC_POLICY, MENUSCENIC_TRAFFIC, 
+      MENUSCENIC_QR_CODE)
+    values (#{menuscenicId,jdbcType=INTEGER}, #{menuscenicName,jdbcType=VARCHAR}, #{menuscenicIntroduce,jdbcType=VARCHAR}, 
+      #{menuscenicPic,jdbcType=VARCHAR}, #{menuscenicPrice,jdbcType=REAL}, #{menuscenicPlace,jdbcType=VARCHAR}, 
+      #{menuscenicTime,jdbcType=VARCHAR}, #{menuscenicPolicy,jdbcType=VARCHAR}, #{menuscenicTraffic,jdbcType=VARCHAR}, 
+      #{menuscenicQrCode,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="nsu.edu.qingcheng.bean.Menuscenic">
+    insert into menuscenic
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="menuscenicId != null">
+        MENUSCENIC_ID,
+      </if>
+      <if test="menuscenicName != null">
+        MENUSCENIC_NAME,
+      </if>
+      <if test="menuscenicIntroduce != null">
+        MENUSCENIC_INTRODUCE,
+      </if>
+      <if test="menuscenicPic != null">
+        MENUSCENIC_PIC,
+      </if>
+      <if test="menuscenicPrice != null">
+        MENUSCENIC_PRICE,
+      </if>
+      <if test="menuscenicPlace != null">
+        MENUSCENIC_PLACE,
+      </if>
+      <if test="menuscenicTime != null">
+        MENUSCENIC_TIME,
+      </if>
+      <if test="menuscenicPolicy != null">
+        MENUSCENIC_POLICY,
+      </if>
+      <if test="menuscenicTraffic != null">
+        MENUSCENIC_TRAFFIC,
+      </if>
+      <if test="menuscenicQrCode != null">
+        MENUSCENIC_QR_CODE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="menuscenicId != null">
+        #{menuscenicId,jdbcType=INTEGER},
+      </if>
+      <if test="menuscenicName != null">
+        #{menuscenicName,jdbcType=VARCHAR},
+      </if>
+      <if test="menuscenicIntroduce != null">
+        #{menuscenicIntroduce,jdbcType=VARCHAR},
+      </if>
+      <if test="menuscenicPic != null">
+        #{menuscenicPic,jdbcType=VARCHAR},
+      </if>
+      <if test="menuscenicPrice != null">
+        #{menuscenicPrice,jdbcType=REAL},
+      </if>
+      <if test="menuscenicPlace != null">
+        #{menuscenicPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="menuscenicTime != null">
+        #{menuscenicTime,jdbcType=VARCHAR},
+      </if>
+      <if test="menuscenicPolicy != null">
+        #{menuscenicPolicy,jdbcType=VARCHAR},
+      </if>
+      <if test="menuscenicTraffic != null">
+        #{menuscenicTraffic,jdbcType=VARCHAR},
+      </if>
+      <if test="menuscenicQrCode != null">
+        #{menuscenicQrCode,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="nsu.edu.qingcheng.bean.MenuscenicExample" resultType="java.lang.Long">
+    select count(*) from menuscenic
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update menuscenic
+    <set>
+      <if test="record.menuscenicId != null">
+        MENUSCENIC_ID = #{record.menuscenicId,jdbcType=INTEGER},
+      </if>
+      <if test="record.menuscenicName != null">
+        MENUSCENIC_NAME = #{record.menuscenicName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.menuscenicIntroduce != null">
+        MENUSCENIC_INTRODUCE = #{record.menuscenicIntroduce,jdbcType=VARCHAR},
+      </if>
+      <if test="record.menuscenicPic != null">
+        MENUSCENIC_PIC = #{record.menuscenicPic,jdbcType=VARCHAR},
+      </if>
+      <if test="record.menuscenicPrice != null">
+        MENUSCENIC_PRICE = #{record.menuscenicPrice,jdbcType=REAL},
+      </if>
+      <if test="record.menuscenicPlace != null">
+        MENUSCENIC_PLACE = #{record.menuscenicPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="record.menuscenicTime != null">
+        MENUSCENIC_TIME = #{record.menuscenicTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.menuscenicPolicy != null">
+        MENUSCENIC_POLICY = #{record.menuscenicPolicy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.menuscenicTraffic != null">
+        MENUSCENIC_TRAFFIC = #{record.menuscenicTraffic,jdbcType=VARCHAR},
+      </if>
+      <if test="record.menuscenicQrCode != null">
+        MENUSCENIC_QR_CODE = #{record.menuscenicQrCode,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update menuscenic
+    set MENUSCENIC_ID = #{record.menuscenicId,jdbcType=INTEGER},
+      MENUSCENIC_NAME = #{record.menuscenicName,jdbcType=VARCHAR},
+      MENUSCENIC_INTRODUCE = #{record.menuscenicIntroduce,jdbcType=VARCHAR},
+      MENUSCENIC_PIC = #{record.menuscenicPic,jdbcType=VARCHAR},
+      MENUSCENIC_PRICE = #{record.menuscenicPrice,jdbcType=REAL},
+      MENUSCENIC_PLACE = #{record.menuscenicPlace,jdbcType=VARCHAR},
+      MENUSCENIC_TIME = #{record.menuscenicTime,jdbcType=VARCHAR},
+      MENUSCENIC_POLICY = #{record.menuscenicPolicy,jdbcType=VARCHAR},
+      MENUSCENIC_TRAFFIC = #{record.menuscenicTraffic,jdbcType=VARCHAR},
+      MENUSCENIC_QR_CODE = #{record.menuscenicQrCode,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="nsu.edu.qingcheng.bean.Menuscenic">
+    update menuscenic
+    <set>
+      <if test="menuscenicName != null">
+        MENUSCENIC_NAME = #{menuscenicName,jdbcType=VARCHAR},
+      </if>
+      <if test="menuscenicIntroduce != null">
+        MENUSCENIC_INTRODUCE = #{menuscenicIntroduce,jdbcType=VARCHAR},
+      </if>
+      <if test="menuscenicPic != null">
+        MENUSCENIC_PIC = #{menuscenicPic,jdbcType=VARCHAR},
+      </if>
+      <if test="menuscenicPrice != null">
+        MENUSCENIC_PRICE = #{menuscenicPrice,jdbcType=REAL},
+      </if>
+      <if test="menuscenicPlace != null">
+        MENUSCENIC_PLACE = #{menuscenicPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="menuscenicTime != null">
+        MENUSCENIC_TIME = #{menuscenicTime,jdbcType=VARCHAR},
+      </if>
+      <if test="menuscenicPolicy != null">
+        MENUSCENIC_POLICY = #{menuscenicPolicy,jdbcType=VARCHAR},
+      </if>
+      <if test="menuscenicTraffic != null">
+        MENUSCENIC_TRAFFIC = #{menuscenicTraffic,jdbcType=VARCHAR},
+      </if>
+      <if test="menuscenicQrCode != null">
+        MENUSCENIC_QR_CODE = #{menuscenicQrCode,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where MENUSCENIC_ID = #{menuscenicId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="nsu.edu.qingcheng.bean.Menuscenic">
+    update menuscenic
+    set MENUSCENIC_NAME = #{menuscenicName,jdbcType=VARCHAR},
+      MENUSCENIC_INTRODUCE = #{menuscenicIntroduce,jdbcType=VARCHAR},
+      MENUSCENIC_PIC = #{menuscenicPic,jdbcType=VARCHAR},
+      MENUSCENIC_PRICE = #{menuscenicPrice,jdbcType=REAL},
+      MENUSCENIC_PLACE = #{menuscenicPlace,jdbcType=VARCHAR},
+      MENUSCENIC_TIME = #{menuscenicTime,jdbcType=VARCHAR},
+      MENUSCENIC_POLICY = #{menuscenicPolicy,jdbcType=VARCHAR},
+      MENUSCENIC_TRAFFIC = #{menuscenicTraffic,jdbcType=VARCHAR},
+      MENUSCENIC_QR_CODE = #{menuscenicQrCode,jdbcType=VARCHAR}
+    where MENUSCENIC_ID = #{menuscenicId,jdbcType=INTEGER}
+  </update>
+</mapper>

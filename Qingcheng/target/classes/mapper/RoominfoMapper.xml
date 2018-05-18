@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="nsu.edu.qingcheng.dao.RoominfoMapper">
+  <resultMap id="BaseResultMap" type="nsu.edu.qingcheng.bean.Roominfo">
+    <id column="ROOMINFO_ID" jdbcType="INTEGER" property="roominfoId" />
+    <result column="RESIDENCE_ID" jdbcType="INTEGER" property="residenceId" />
+    <result column="ROOMINFO_HOUSE_TYPE" jdbcType="VARCHAR" property="roominfoHouseType" />
+    <result column="ROOMINFO_DISCOUNTS" jdbcType="VARCHAR" property="roominfoDiscounts" />
+    <result column="ROOMINFO_SUPPORT_COUNT" jdbcType="INTEGER" property="roominfoSupportCount" />
+    <result column="ROOMINFO_PRICE" jdbcType="REAL" property="roominfoPrice" />
+    <result column="ROOMINFO_PIC" jdbcType="VARCHAR" property="roominfoPic" />
+    <result column="ROOMINFO_NAME" jdbcType="VARCHAR" property="roominfoName" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ROOMINFO_ID, RESIDENCE_ID, ROOMINFO_HOUSE_TYPE, ROOMINFO_DISCOUNTS, ROOMINFO_SUPPORT_COUNT, 
+    ROOMINFO_PRICE, ROOMINFO_PIC, ROOMINFO_NAME
+  </sql>
+  <select id="selectByExample" parameterType="nsu.edu.qingcheng.bean.RoominfoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from roominfo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from roominfo
+    where ROOMINFO_ID = #{roominfoId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from roominfo
+    where ROOMINFO_ID = #{roominfoId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="nsu.edu.qingcheng.bean.RoominfoExample">
+    delete from roominfo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="nsu.edu.qingcheng.bean.Roominfo">
+    insert into roominfo (ROOMINFO_ID, RESIDENCE_ID, ROOMINFO_HOUSE_TYPE, 
+      ROOMINFO_DISCOUNTS, ROOMINFO_SUPPORT_COUNT, 
+      ROOMINFO_PRICE, ROOMINFO_PIC, ROOMINFO_NAME
+      )
+    values (#{roominfoId,jdbcType=INTEGER}, #{residenceId,jdbcType=INTEGER}, #{roominfoHouseType,jdbcType=VARCHAR}, 
+      #{roominfoDiscounts,jdbcType=VARCHAR}, #{roominfoSupportCount,jdbcType=INTEGER}, 
+      #{roominfoPrice,jdbcType=REAL}, #{roominfoPic,jdbcType=VARCHAR}, #{roominfoName,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="nsu.edu.qingcheng.bean.Roominfo">
+    insert into roominfo
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="roominfoId != null">
+        ROOMINFO_ID,
+      </if>
+      <if test="residenceId != null">
+        RESIDENCE_ID,
+      </if>
+      <if test="roominfoHouseType != null">
+        ROOMINFO_HOUSE_TYPE,
+      </if>
+      <if test="roominfoDiscounts != null">
+        ROOMINFO_DISCOUNTS,
+      </if>
+      <if test="roominfoSupportCount != null">
+        ROOMINFO_SUPPORT_COUNT,
+      </if>
+      <if test="roominfoPrice != null">
+        ROOMINFO_PRICE,
+      </if>
+      <if test="roominfoPic != null">
+        ROOMINFO_PIC,
+      </if>
+      <if test="roominfoName != null">
+        ROOMINFO_NAME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="roominfoId != null">
+        #{roominfoId,jdbcType=INTEGER},
+      </if>
+      <if test="residenceId != null">
+        #{residenceId,jdbcType=INTEGER},
+      </if>
+      <if test="roominfoHouseType != null">
+        #{roominfoHouseType,jdbcType=VARCHAR},
+      </if>
+      <if test="roominfoDiscounts != null">
+        #{roominfoDiscounts,jdbcType=VARCHAR},
+      </if>
+      <if test="roominfoSupportCount != null">
+        #{roominfoSupportCount,jdbcType=INTEGER},
+      </if>
+      <if test="roominfoPrice != null">
+        #{roominfoPrice,jdbcType=REAL},
+      </if>
+      <if test="roominfoPic != null">
+        #{roominfoPic,jdbcType=VARCHAR},
+      </if>
+      <if test="roominfoName != null">
+        #{roominfoName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="nsu.edu.qingcheng.bean.RoominfoExample" resultType="java.lang.Long">
+    select count(*) from roominfo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update roominfo
+    <set>
+      <if test="record.roominfoId != null">
+        ROOMINFO_ID = #{record.roominfoId,jdbcType=INTEGER},
+      </if>
+      <if test="record.residenceId != null">
+        RESIDENCE_ID = #{record.residenceId,jdbcType=INTEGER},
+      </if>
+      <if test="record.roominfoHouseType != null">
+        ROOMINFO_HOUSE_TYPE = #{record.roominfoHouseType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.roominfoDiscounts != null">
+        ROOMINFO_DISCOUNTS = #{record.roominfoDiscounts,jdbcType=VARCHAR},
+      </if>
+      <if test="record.roominfoSupportCount != null">
+        ROOMINFO_SUPPORT_COUNT = #{record.roominfoSupportCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.roominfoPrice != null">
+        ROOMINFO_PRICE = #{record.roominfoPrice,jdbcType=REAL},
+      </if>
+      <if test="record.roominfoPic != null">
+        ROOMINFO_PIC = #{record.roominfoPic,jdbcType=VARCHAR},
+      </if>
+      <if test="record.roominfoName != null">
+        ROOMINFO_NAME = #{record.roominfoName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update roominfo
+    set ROOMINFO_ID = #{record.roominfoId,jdbcType=INTEGER},
+      RESIDENCE_ID = #{record.residenceId,jdbcType=INTEGER},
+      ROOMINFO_HOUSE_TYPE = #{record.roominfoHouseType,jdbcType=VARCHAR},
+      ROOMINFO_DISCOUNTS = #{record.roominfoDiscounts,jdbcType=VARCHAR},
+      ROOMINFO_SUPPORT_COUNT = #{record.roominfoSupportCount,jdbcType=INTEGER},
+      ROOMINFO_PRICE = #{record.roominfoPrice,jdbcType=REAL},
+      ROOMINFO_PIC = #{record.roominfoPic,jdbcType=VARCHAR},
+      ROOMINFO_NAME = #{record.roominfoName,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="nsu.edu.qingcheng.bean.Roominfo">
+    update roominfo
+    <set>
+      <if test="residenceId != null">
+        RESIDENCE_ID = #{residenceId,jdbcType=INTEGER},
+      </if>
+      <if test="roominfoHouseType != null">
+        ROOMINFO_HOUSE_TYPE = #{roominfoHouseType,jdbcType=VARCHAR},
+      </if>
+      <if test="roominfoDiscounts != null">
+        ROOMINFO_DISCOUNTS = #{roominfoDiscounts,jdbcType=VARCHAR},
+      </if>
+      <if test="roominfoSupportCount != null">
+        ROOMINFO_SUPPORT_COUNT = #{roominfoSupportCount,jdbcType=INTEGER},
+      </if>
+      <if test="roominfoPrice != null">
+        ROOMINFO_PRICE = #{roominfoPrice,jdbcType=REAL},
+      </if>
+      <if test="roominfoPic != null">
+        ROOMINFO_PIC = #{roominfoPic,jdbcType=VARCHAR},
+      </if>
+      <if test="roominfoName != null">
+        ROOMINFO_NAME = #{roominfoName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ROOMINFO_ID = #{roominfoId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="nsu.edu.qingcheng.bean.Roominfo">
+    update roominfo
+    set RESIDENCE_ID = #{residenceId,jdbcType=INTEGER},
+      ROOMINFO_HOUSE_TYPE = #{roominfoHouseType,jdbcType=VARCHAR},
+      ROOMINFO_DISCOUNTS = #{roominfoDiscounts,jdbcType=VARCHAR},
+      ROOMINFO_SUPPORT_COUNT = #{roominfoSupportCount,jdbcType=INTEGER},
+      ROOMINFO_PRICE = #{roominfoPrice,jdbcType=REAL},
+      ROOMINFO_PIC = #{roominfoPic,jdbcType=VARCHAR},
+      ROOMINFO_NAME = #{roominfoName,jdbcType=VARCHAR}
+    where ROOMINFO_ID = #{roominfoId,jdbcType=INTEGER}
+  </update>
+</mapper>

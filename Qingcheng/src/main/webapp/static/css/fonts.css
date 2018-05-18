@@ -1,0 +1,24 @@
+@font-face {
+	font-family:brushupWeb;
+	src:url(../font/brushup-webfont.woff2);
+}
+@font-face {
+	font-family:fontHello;
+/* 	src:url(../font/fonthello.woff2); */
+}
+@font-face {
+	font-family:ralewayBold;
+	src:url(../font/raleway-bold.woff);
+}
+@font-face {
+	font-family:ralewayLight;
+	src:url(../font/raleway-light.woff);
+}
+@font-face {
+	font-family:ralewayRegular;
+	src:url(../font/raleway-regular.woff);
+}
+@font-face {
+	font-family:ralewaySemibold;
+	src:url(../font/raleway-semiBold.woff);
+}

@@ -1,0 +1,519 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="nsu.edu.qingcheng.dao.ComplexMapper">
+  <resultMap id="BaseResultMap" type="nsu.edu.qingcheng.bean.Complex">
+    <id column="COMPLEX_ID" jdbcType="INTEGER" property="complexId" />
+    <result column="MENU_ID" jdbcType="INTEGER" property="menuId" />
+    <result column="VILLAGE_ID" jdbcType="INTEGER" property="villageId" />
+    <result column="COMPLEX_TYPE" jdbcType="INTEGER" property="complexType" />
+    <result column="COMPLEX_NAME" jdbcType="VARCHAR" property="complexName" />
+    <result column="COMPLEX_PIC" jdbcType="VARCHAR" property="complexPic" />
+    <result column="COMPLEX_INTRODUCE" jdbcType="VARCHAR" property="complexIntroduce" />
+    <result column="COMPLEX_LOGO" jdbcType="VARCHAR" property="complexLogo" />
+    <result column="COMPLEX_READ_COUNT" jdbcType="INTEGER" property="complexReadCount" />
+    <result column="COMPLEX_KEYWORD" jdbcType="VARCHAR" property="complexKeyword" />
+    <result column="COMPLEX_DATE" jdbcType="DATE" property="complexDate" />
+    <result column="COMPLEX_PLACE" jdbcType="VARCHAR" property="complexPlace" />
+    <result column="COMPLEX_PHONE" jdbcType="VARCHAR" property="complexPhone" />
+    <result column="COMPLEX_TRAFFIC" jdbcType="VARCHAR" property="complexTraffic" />
+    <result column="COMPLEX_PEOPLE" jdbcType="INTEGER" property="complexPeople" />
+    <result column="COMPLEX_ARTICLE_SOURCE" jdbcType="VARCHAR" property="complexArticleSource" />
+    <result column="COMPLEX_AUTHOR" jdbcType="VARCHAR" property="complexAuthor" />
+    <result column="COMPLEX_SUMMARY" jdbcType="VARCHAR" property="complexSummary" />
+    <result column="COMPLEX_PRICE" jdbcType="REAL" property="complexPrice" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="nsu.edu.qingcheng.bean.Complex">
+    <result column="COMPLEX_TEXT" jdbcType="LONGVARCHAR" property="complexText" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    COMPLEX_ID, MENU_ID, VILLAGE_ID, COMPLEX_TYPE, COMPLEX_NAME, COMPLEX_PIC, COMPLEX_INTRODUCE, 
+    COMPLEX_LOGO, COMPLEX_READ_COUNT, COMPLEX_KEYWORD, COMPLEX_DATE, COMPLEX_PLACE, COMPLEX_PHONE, 
+    COMPLEX_TRAFFIC, COMPLEX_PEOPLE, COMPLEX_ARTICLE_SOURCE, COMPLEX_AUTHOR, COMPLEX_SUMMARY, 
+    COMPLEX_PRICE
+  </sql>
+  <sql id="Blob_Column_List">
+    COMPLEX_TEXT
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="nsu.edu.qingcheng.bean.ComplexExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from complex
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="nsu.edu.qingcheng.bean.ComplexExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from complex
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from complex
+    where COMPLEX_ID = #{complexId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from complex
+    where COMPLEX_ID = #{complexId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="nsu.edu.qingcheng.bean.ComplexExample">
+    delete from complex
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="nsu.edu.qingcheng.bean.Complex">
+    insert into complex (COMPLEX_ID, MENU_ID, VILLAGE_ID, 
+      COMPLEX_TYPE, COMPLEX_NAME, COMPLEX_PIC, 
+      COMPLEX_INTRODUCE, COMPLEX_LOGO, COMPLEX_READ_COUNT, 
+      COMPLEX_KEYWORD, COMPLEX_DATE, COMPLEX_PLACE, 
+      COMPLEX_PHONE, COMPLEX_TRAFFIC, COMPLEX_PEOPLE, 
+      COMPLEX_ARTICLE_SOURCE, COMPLEX_AUTHOR, COMPLEX_SUMMARY, 
+      COMPLEX_PRICE, COMPLEX_TEXT)
+    values (#{complexId,jdbcType=INTEGER}, #{menuId,jdbcType=INTEGER}, #{villageId,jdbcType=INTEGER}, 
+      #{complexType,jdbcType=INTEGER}, #{complexName,jdbcType=VARCHAR}, #{complexPic,jdbcType=VARCHAR}, 
+      #{complexIntroduce,jdbcType=VARCHAR}, #{complexLogo,jdbcType=VARCHAR}, #{complexReadCount,jdbcType=INTEGER}, 
+      #{complexKeyword,jdbcType=VARCHAR}, #{complexDate,jdbcType=DATE}, #{complexPlace,jdbcType=VARCHAR}, 
+      #{complexPhone,jdbcType=VARCHAR}, #{complexTraffic,jdbcType=VARCHAR}, #{complexPeople,jdbcType=INTEGER}, 
+      #{complexArticleSource,jdbcType=VARCHAR}, #{complexAuthor,jdbcType=VARCHAR}, #{complexSummary,jdbcType=VARCHAR}, 
+      #{complexPrice,jdbcType=REAL}, #{complexText,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="nsu.edu.qingcheng.bean.Complex">
+    insert into complex
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="complexId != null">
+        COMPLEX_ID,
+      </if>
+      <if test="menuId != null">
+        MENU_ID,
+      </if>
+      <if test="villageId != null">
+        VILLAGE_ID,
+      </if>
+      <if test="complexType != null">
+        COMPLEX_TYPE,
+      </if>
+      <if test="complexName != null">
+        COMPLEX_NAME,
+      </if>
+      <if test="complexPic != null">
+        COMPLEX_PIC,
+      </if>
+      <if test="complexIntroduce != null">
+        COMPLEX_INTRODUCE,
+      </if>
+      <if test="complexLogo != null">
+        COMPLEX_LOGO,
+      </if>
+      <if test="complexReadCount != null">
+        COMPLEX_READ_COUNT,
+      </if>
+      <if test="complexKeyword != null">
+        COMPLEX_KEYWORD,
+      </if>
+      <if test="complexDate != null">
+        COMPLEX_DATE,
+      </if>
+      <if test="complexPlace != null">
+        COMPLEX_PLACE,
+      </if>
+      <if test="complexPhone != null">
+        COMPLEX_PHONE,
+      </if>
+      <if test="complexTraffic != null">
+        COMPLEX_TRAFFIC,
+      </if>
+      <if test="complexPeople != null">
+        COMPLEX_PEOPLE,
+      </if>
+      <if test="complexArticleSource != null">
+        COMPLEX_ARTICLE_SOURCE,
+      </if>
+      <if test="complexAuthor != null">
+        COMPLEX_AUTHOR,
+      </if>
+      <if test="complexSummary != null">
+        COMPLEX_SUMMARY,
+      </if>
+      <if test="complexPrice != null">
+        COMPLEX_PRICE,
+      </if>
+      <if test="complexText != null">
+        COMPLEX_TEXT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="complexId != null">
+        #{complexId,jdbcType=INTEGER},
+      </if>
+      <if test="menuId != null">
+        #{menuId,jdbcType=INTEGER},
+      </if>
+      <if test="villageId != null">
+        #{villageId,jdbcType=INTEGER},
+      </if>
+      <if test="complexType != null">
+        #{complexType,jdbcType=INTEGER},
+      </if>
+      <if test="complexName != null">
+        #{complexName,jdbcType=VARCHAR},
+      </if>
+      <if test="complexPic != null">
+        #{complexPic,jdbcType=VARCHAR},
+      </if>
+      <if test="complexIntroduce != null">
+        #{complexIntroduce,jdbcType=VARCHAR},
+      </if>
+      <if test="complexLogo != null">
+        #{complexLogo,jdbcType=VARCHAR},
+      </if>
+      <if test="complexReadCount != null">
+        #{complexReadCount,jdbcType=INTEGER},
+      </if>
+      <if test="complexKeyword != null">
+        #{complexKeyword,jdbcType=VARCHAR},
+      </if>
+      <if test="complexDate != null">
+        #{complexDate,jdbcType=DATE},
+      </if>
+      <if test="complexPlace != null">
+        #{complexPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="complexPhone != null">
+        #{complexPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="complexTraffic != null">
+        #{complexTraffic,jdbcType=VARCHAR},
+      </if>
+      <if test="complexPeople != null">
+        #{complexPeople,jdbcType=INTEGER},
+      </if>
+      <if test="complexArticleSource != null">
+        #{complexArticleSource,jdbcType=VARCHAR},
+      </if>
+      <if test="complexAuthor != null">
+        #{complexAuthor,jdbcType=VARCHAR},
+      </if>
+      <if test="complexSummary != null">
+        #{complexSummary,jdbcType=VARCHAR},
+      </if>
+      <if test="complexPrice != null">
+        #{complexPrice,jdbcType=REAL},
+      </if>
+      <if test="complexText != null">
+        #{complexText,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="nsu.edu.qingcheng.bean.ComplexExample" resultType="java.lang.Long">
+    select count(*) from complex
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update complex
+    <set>
+      <if test="record.complexId != null">
+        COMPLEX_ID = #{record.complexId,jdbcType=INTEGER},
+      </if>
+      <if test="record.menuId != null">
+        MENU_ID = #{record.menuId,jdbcType=INTEGER},
+      </if>
+      <if test="record.villageId != null">
+        VILLAGE_ID = #{record.villageId,jdbcType=INTEGER},
+      </if>
+      <if test="record.complexType != null">
+        COMPLEX_TYPE = #{record.complexType,jdbcType=INTEGER},
+      </if>
+      <if test="record.complexName != null">
+        COMPLEX_NAME = #{record.complexName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.complexPic != null">
+        COMPLEX_PIC = #{record.complexPic,jdbcType=VARCHAR},
+      </if>
+      <if test="record.complexIntroduce != null">
+        COMPLEX_INTRODUCE = #{record.complexIntroduce,jdbcType=VARCHAR},
+      </if>
+      <if test="record.complexLogo != null">
+        COMPLEX_LOGO = #{record.complexLogo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.complexReadCount != null">
+        COMPLEX_READ_COUNT = #{record.complexReadCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.complexKeyword != null">
+        COMPLEX_KEYWORD = #{record.complexKeyword,jdbcType=VARCHAR},
+      </if>
+      <if test="record.complexDate != null">
+        COMPLEX_DATE = #{record.complexDate,jdbcType=DATE},
+      </if>
+      <if test="record.complexPlace != null">
+        COMPLEX_PLACE = #{record.complexPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="record.complexPhone != null">
+        COMPLEX_PHONE = #{record.complexPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.complexTraffic != null">
+        COMPLEX_TRAFFIC = #{record.complexTraffic,jdbcType=VARCHAR},
+      </if>
+      <if test="record.complexPeople != null">
+        COMPLEX_PEOPLE = #{record.complexPeople,jdbcType=INTEGER},
+      </if>
+      <if test="record.complexArticleSource != null">
+        COMPLEX_ARTICLE_SOURCE = #{record.complexArticleSource,jdbcType=VARCHAR},
+      </if>
+      <if test="record.complexAuthor != null">
+        COMPLEX_AUTHOR = #{record.complexAuthor,jdbcType=VARCHAR},
+      </if>
+      <if test="record.complexSummary != null">
+        COMPLEX_SUMMARY = #{record.complexSummary,jdbcType=VARCHAR},
+      </if>
+      <if test="record.complexPrice != null">
+        COMPLEX_PRICE = #{record.complexPrice,jdbcType=REAL},
+      </if>
+      <if test="record.complexText != null">
+        COMPLEX_TEXT = #{record.complexText,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update complex
+    set COMPLEX_ID = #{record.complexId,jdbcType=INTEGER},
+      MENU_ID = #{record.menuId,jdbcType=INTEGER},
+      VILLAGE_ID = #{record.villageId,jdbcType=INTEGER},
+      COMPLEX_TYPE = #{record.complexType,jdbcType=INTEGER},
+      COMPLEX_NAME = #{record.complexName,jdbcType=VARCHAR},
+      COMPLEX_PIC = #{record.complexPic,jdbcType=VARCHAR},
+      COMPLEX_INTRODUCE = #{record.complexIntroduce,jdbcType=VARCHAR},
+      COMPLEX_LOGO = #{record.complexLogo,jdbcType=VARCHAR},
+      COMPLEX_READ_COUNT = #{record.complexReadCount,jdbcType=INTEGER},
+      COMPLEX_KEYWORD = #{record.complexKeyword,jdbcType=VARCHAR},
+      COMPLEX_DATE = #{record.complexDate,jdbcType=DATE},
+      COMPLEX_PLACE = #{record.complexPlace,jdbcType=VARCHAR},
+      COMPLEX_PHONE = #{record.complexPhone,jdbcType=VARCHAR},
+      COMPLEX_TRAFFIC = #{record.complexTraffic,jdbcType=VARCHAR},
+      COMPLEX_PEOPLE = #{record.complexPeople,jdbcType=INTEGER},
+      COMPLEX_ARTICLE_SOURCE = #{record.complexArticleSource,jdbcType=VARCHAR},
+      COMPLEX_AUTHOR = #{record.complexAuthor,jdbcType=VARCHAR},
+      COMPLEX_SUMMARY = #{record.complexSummary,jdbcType=VARCHAR},
+      COMPLEX_PRICE = #{record.complexPrice,jdbcType=REAL},
+      COMPLEX_TEXT = #{record.complexText,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update complex
+    set COMPLEX_ID = #{record.complexId,jdbcType=INTEGER},
+      MENU_ID = #{record.menuId,jdbcType=INTEGER},
+      VILLAGE_ID = #{record.villageId,jdbcType=INTEGER},
+      COMPLEX_TYPE = #{record.complexType,jdbcType=INTEGER},
+      COMPLEX_NAME = #{record.complexName,jdbcType=VARCHAR},
+      COMPLEX_PIC = #{record.complexPic,jdbcType=VARCHAR},
+      COMPLEX_INTRODUCE = #{record.complexIntroduce,jdbcType=VARCHAR},
+      COMPLEX_LOGO = #{record.complexLogo,jdbcType=VARCHAR},
+      COMPLEX_READ_COUNT = #{record.complexReadCount,jdbcType=INTEGER},
+      COMPLEX_KEYWORD = #{record.complexKeyword,jdbcType=VARCHAR},
+      COMPLEX_DATE = #{record.complexDate,jdbcType=DATE},
+      COMPLEX_PLACE = #{record.complexPlace,jdbcType=VARCHAR},
+      COMPLEX_PHONE = #{record.complexPhone,jdbcType=VARCHAR},
+      COMPLEX_TRAFFIC = #{record.complexTraffic,jdbcType=VARCHAR},
+      COMPLEX_PEOPLE = #{record.complexPeople,jdbcType=INTEGER},
+      COMPLEX_ARTICLE_SOURCE = #{record.complexArticleSource,jdbcType=VARCHAR},
+      COMPLEX_AUTHOR = #{record.complexAuthor,jdbcType=VARCHAR},
+      COMPLEX_SUMMARY = #{record.complexSummary,jdbcType=VARCHAR},
+      COMPLEX_PRICE = #{record.complexPrice,jdbcType=REAL}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="nsu.edu.qingcheng.bean.Complex">
+    update complex
+    <set>
+      <if test="menuId != null">
+        MENU_ID = #{menuId,jdbcType=INTEGER},
+      </if>
+      <if test="villageId != null">
+        VILLAGE_ID = #{villageId,jdbcType=INTEGER},
+      </if>
+      <if test="complexType != null">
+        COMPLEX_TYPE = #{complexType,jdbcType=INTEGER},
+      </if>
+      <if test="complexName != null">
+        COMPLEX_NAME = #{complexName,jdbcType=VARCHAR},
+      </if>
+      <if test="complexPic != null">
+        COMPLEX_PIC = #{complexPic,jdbcType=VARCHAR},
+      </if>
+      <if test="complexIntroduce != null">
+        COMPLEX_INTRODUCE = #{complexIntroduce,jdbcType=VARCHAR},
+      </if>
+      <if test="complexLogo != null">
+        COMPLEX_LOGO = #{complexLogo,jdbcType=VARCHAR},
+      </if>
+      <if test="complexReadCount != null">
+        COMPLEX_READ_COUNT = #{complexReadCount,jdbcType=INTEGER},
+      </if>
+      <if test="complexKeyword != null">
+        COMPLEX_KEYWORD = #{complexKeyword,jdbcType=VARCHAR},
+      </if>
+      <if test="complexDate != null">
+        COMPLEX_DATE = #{complexDate,jdbcType=DATE},
+      </if>
+      <if test="complexPlace != null">
+        COMPLEX_PLACE = #{complexPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="complexPhone != null">
+        COMPLEX_PHONE = #{complexPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="complexTraffic != null">
+        COMPLEX_TRAFFIC = #{complexTraffic,jdbcType=VARCHAR},
+      </if>
+      <if test="complexPeople != null">
+        COMPLEX_PEOPLE = #{complexPeople,jdbcType=INTEGER},
+      </if>
+      <if test="complexArticleSource != null">
+        COMPLEX_ARTICLE_SOURCE = #{complexArticleSource,jdbcType=VARCHAR},
+      </if>
+      <if test="complexAuthor != null">
+        COMPLEX_AUTHOR = #{complexAuthor,jdbcType=VARCHAR},
+      </if>
+      <if test="complexSummary != null">
+        COMPLEX_SUMMARY = #{complexSummary,jdbcType=VARCHAR},
+      </if>
+      <if test="complexPrice != null">
+        COMPLEX_PRICE = #{complexPrice,jdbcType=REAL},
+      </if>
+      <if test="complexText != null">
+        COMPLEX_TEXT = #{complexText,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where COMPLEX_ID = #{complexId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="nsu.edu.qingcheng.bean.Complex">
+    update complex
+    set MENU_ID = #{menuId,jdbcType=INTEGER},
+      VILLAGE_ID = #{villageId,jdbcType=INTEGER},
+      COMPLEX_TYPE = #{complexType,jdbcType=INTEGER},
+      COMPLEX_NAME = #{complexName,jdbcType=VARCHAR},
+      COMPLEX_PIC = #{complexPic,jdbcType=VARCHAR},
+      COMPLEX_INTRODUCE = #{complexIntroduce,jdbcType=VARCHAR},
+      COMPLEX_LOGO = #{complexLogo,jdbcType=VARCHAR},
+      COMPLEX_READ_COUNT = #{complexReadCount,jdbcType=INTEGER},
+      COMPLEX_KEYWORD = #{complexKeyword,jdbcType=VARCHAR},
+      COMPLEX_DATE = #{complexDate,jdbcType=DATE},
+      COMPLEX_PLACE = #{complexPlace,jdbcType=VARCHAR},
+      COMPLEX_PHONE = #{complexPhone,jdbcType=VARCHAR},
+      COMPLEX_TRAFFIC = #{complexTraffic,jdbcType=VARCHAR},
+      COMPLEX_PEOPLE = #{complexPeople,jdbcType=INTEGER},
+      COMPLEX_ARTICLE_SOURCE = #{complexArticleSource,jdbcType=VARCHAR},
+      COMPLEX_AUTHOR = #{complexAuthor,jdbcType=VARCHAR},
+      COMPLEX_SUMMARY = #{complexSummary,jdbcType=VARCHAR},
+      COMPLEX_PRICE = #{complexPrice,jdbcType=REAL},
+      COMPLEX_TEXT = #{complexText,jdbcType=LONGVARCHAR}
+    where COMPLEX_ID = #{complexId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="nsu.edu.qingcheng.bean.Complex">
+    update complex
+    set MENU_ID = #{menuId,jdbcType=INTEGER},
+      VILLAGE_ID = #{villageId,jdbcType=INTEGER},
+      COMPLEX_TYPE = #{complexType,jdbcType=INTEGER},
+      COMPLEX_NAME = #{complexName,jdbcType=VARCHAR},
+      COMPLEX_PIC = #{complexPic,jdbcType=VARCHAR},
+      COMPLEX_INTRODUCE = #{complexIntroduce,jdbcType=VARCHAR},
+      COMPLEX_LOGO = #{complexLogo,jdbcType=VARCHAR},
+      COMPLEX_READ_COUNT = #{complexReadCount,jdbcType=INTEGER},
+      COMPLEX_KEYWORD = #{complexKeyword,jdbcType=VARCHAR},
+      COMPLEX_DATE = #{complexDate,jdbcType=DATE},
+      COMPLEX_PLACE = #{complexPlace,jdbcType=VARCHAR},
+      COMPLEX_PHONE = #{complexPhone,jdbcType=VARCHAR},
+      COMPLEX_TRAFFIC = #{complexTraffic,jdbcType=VARCHAR},
+      COMPLEX_PEOPLE = #{complexPeople,jdbcType=INTEGER},
+      COMPLEX_ARTICLE_SOURCE = #{complexArticleSource,jdbcType=VARCHAR},
+      COMPLEX_AUTHOR = #{complexAuthor,jdbcType=VARCHAR},
+      COMPLEX_SUMMARY = #{complexSummary,jdbcType=VARCHAR},
+      COMPLEX_PRICE = #{complexPrice,jdbcType=REAL}
+    where COMPLEX_ID = #{complexId,jdbcType=INTEGER}
+  </update>
+</mapper>

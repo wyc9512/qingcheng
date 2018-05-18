@@ -1,0 +1,430 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="nsu.edu.qingcheng.dao.FoodMapper">
+  <resultMap id="BaseResultMap" type="nsu.edu.qingcheng.bean.Food">
+    <id column="FOOD_ID" jdbcType="INTEGER" property="foodId" />
+    <result column="VILLAGE_ID" jdbcType="INTEGER" property="villageId" />
+    <result column="TOP_ID" jdbcType="INTEGER" property="topId" />
+    <result column="FOOD_NAME" jdbcType="VARCHAR" property="foodName" />
+    <result column="FOOD_PIC" jdbcType="VARCHAR" property="foodPic" />
+    <result column="FOOD_INTRODUCE" jdbcType="VARCHAR" property="foodIntroduce" />
+    <result column="FOOD_PRICE" jdbcType="REAL" property="foodPrice" />
+    <result column="FOOD_RECOMMEND" jdbcType="INTEGER" property="foodRecommend" />
+    <result column="FOOD_PLACE" jdbcType="VARCHAR" property="foodPlace" />
+    <result column="FOOD_MATERIAL" jdbcType="VARCHAR" property="foodMaterial" />
+    <result column="FOOD_PRACTICE" jdbcType="VARCHAR" property="foodPractice" />
+    <result column="FOOD_EFFECT" jdbcType="VARCHAR" property="foodEffect" />
+    <result column="FOOD_TYPE" jdbcType="INTEGER" property="foodType" />
+    <result column="FOOD_KEYWORD" jdbcType="VARCHAR" property="foodKeyword" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="nsu.edu.qingcheng.bean.Food">
+    <result column="FOOD_TEXT" jdbcType="LONGVARCHAR" property="foodText" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    FOOD_ID, VILLAGE_ID, TOP_ID, FOOD_NAME, FOOD_PIC, FOOD_INTRODUCE, FOOD_PRICE, FOOD_RECOMMEND, 
+    FOOD_PLACE, FOOD_MATERIAL, FOOD_PRACTICE, FOOD_EFFECT, FOOD_TYPE, FOOD_KEYWORD
+  </sql>
+  <sql id="Blob_Column_List">
+    FOOD_TEXT
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="nsu.edu.qingcheng.bean.FoodExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from food
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="nsu.edu.qingcheng.bean.FoodExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from food
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from food
+    where FOOD_ID = #{foodId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from food
+    where FOOD_ID = #{foodId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="nsu.edu.qingcheng.bean.FoodExample">
+    delete from food
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="nsu.edu.qingcheng.bean.Food">
+    insert into food (FOOD_ID, VILLAGE_ID, TOP_ID, 
+      FOOD_NAME, FOOD_PIC, FOOD_INTRODUCE, 
+      FOOD_PRICE, FOOD_RECOMMEND, FOOD_PLACE, 
+      FOOD_MATERIAL, FOOD_PRACTICE, FOOD_EFFECT, 
+      FOOD_TYPE, FOOD_KEYWORD, FOOD_TEXT
+      )
+    values (#{foodId,jdbcType=INTEGER}, #{villageId,jdbcType=INTEGER}, #{topId,jdbcType=INTEGER}, 
+      #{foodName,jdbcType=VARCHAR}, #{foodPic,jdbcType=VARCHAR}, #{foodIntroduce,jdbcType=VARCHAR}, 
+      #{foodPrice,jdbcType=REAL}, #{foodRecommend,jdbcType=INTEGER}, #{foodPlace,jdbcType=VARCHAR}, 
+      #{foodMaterial,jdbcType=VARCHAR}, #{foodPractice,jdbcType=VARCHAR}, #{foodEffect,jdbcType=VARCHAR}, 
+      #{foodType,jdbcType=INTEGER}, #{foodKeyword,jdbcType=VARCHAR}, #{foodText,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="nsu.edu.qingcheng.bean.Food">
+    insert into food
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="foodId != null">
+        FOOD_ID,
+      </if>
+      <if test="villageId != null">
+        VILLAGE_ID,
+      </if>
+      <if test="topId != null">
+        TOP_ID,
+      </if>
+      <if test="foodName != null">
+        FOOD_NAME,
+      </if>
+      <if test="foodPic != null">
+        FOOD_PIC,
+      </if>
+      <if test="foodIntroduce != null">
+        FOOD_INTRODUCE,
+      </if>
+      <if test="foodPrice != null">
+        FOOD_PRICE,
+      </if>
+      <if test="foodRecommend != null">
+        FOOD_RECOMMEND,
+      </if>
+      <if test="foodPlace != null">
+        FOOD_PLACE,
+      </if>
+      <if test="foodMaterial != null">
+        FOOD_MATERIAL,
+      </if>
+      <if test="foodPractice != null">
+        FOOD_PRACTICE,
+      </if>
+      <if test="foodEffect != null">
+        FOOD_EFFECT,
+      </if>
+      <if test="foodType != null">
+        FOOD_TYPE,
+      </if>
+      <if test="foodKeyword != null">
+        FOOD_KEYWORD,
+      </if>
+      <if test="foodText != null">
+        FOOD_TEXT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="foodId != null">
+        #{foodId,jdbcType=INTEGER},
+      </if>
+      <if test="villageId != null">
+        #{villageId,jdbcType=INTEGER},
+      </if>
+      <if test="topId != null">
+        #{topId,jdbcType=INTEGER},
+      </if>
+      <if test="foodName != null">
+        #{foodName,jdbcType=VARCHAR},
+      </if>
+      <if test="foodPic != null">
+        #{foodPic,jdbcType=VARCHAR},
+      </if>
+      <if test="foodIntroduce != null">
+        #{foodIntroduce,jdbcType=VARCHAR},
+      </if>
+      <if test="foodPrice != null">
+        #{foodPrice,jdbcType=REAL},
+      </if>
+      <if test="foodRecommend != null">
+        #{foodRecommend,jdbcType=INTEGER},
+      </if>
+      <if test="foodPlace != null">
+        #{foodPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="foodMaterial != null">
+        #{foodMaterial,jdbcType=VARCHAR},
+      </if>
+      <if test="foodPractice != null">
+        #{foodPractice,jdbcType=VARCHAR},
+      </if>
+      <if test="foodEffect != null">
+        #{foodEffect,jdbcType=VARCHAR},
+      </if>
+      <if test="foodType != null">
+        #{foodType,jdbcType=INTEGER},
+      </if>
+      <if test="foodKeyword != null">
+        #{foodKeyword,jdbcType=VARCHAR},
+      </if>
+      <if test="foodText != null">
+        #{foodText,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="nsu.edu.qingcheng.bean.FoodExample" resultType="java.lang.Long">
+    select count(*) from food
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update food
+    <set>
+      <if test="record.foodId != null">
+        FOOD_ID = #{record.foodId,jdbcType=INTEGER},
+      </if>
+      <if test="record.villageId != null">
+        VILLAGE_ID = #{record.villageId,jdbcType=INTEGER},
+      </if>
+      <if test="record.topId != null">
+        TOP_ID = #{record.topId,jdbcType=INTEGER},
+      </if>
+      <if test="record.foodName != null">
+        FOOD_NAME = #{record.foodName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.foodPic != null">
+        FOOD_PIC = #{record.foodPic,jdbcType=VARCHAR},
+      </if>
+      <if test="record.foodIntroduce != null">
+        FOOD_INTRODUCE = #{record.foodIntroduce,jdbcType=VARCHAR},
+      </if>
+      <if test="record.foodPrice != null">
+        FOOD_PRICE = #{record.foodPrice,jdbcType=REAL},
+      </if>
+      <if test="record.foodRecommend != null">
+        FOOD_RECOMMEND = #{record.foodRecommend,jdbcType=INTEGER},
+      </if>
+      <if test="record.foodPlace != null">
+        FOOD_PLACE = #{record.foodPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="record.foodMaterial != null">
+        FOOD_MATERIAL = #{record.foodMaterial,jdbcType=VARCHAR},
+      </if>
+      <if test="record.foodPractice != null">
+        FOOD_PRACTICE = #{record.foodPractice,jdbcType=VARCHAR},
+      </if>
+      <if test="record.foodEffect != null">
+        FOOD_EFFECT = #{record.foodEffect,jdbcType=VARCHAR},
+      </if>
+      <if test="record.foodType != null">
+        FOOD_TYPE = #{record.foodType,jdbcType=INTEGER},
+      </if>
+      <if test="record.foodKeyword != null">
+        FOOD_KEYWORD = #{record.foodKeyword,jdbcType=VARCHAR},
+      </if>
+      <if test="record.foodText != null">
+        FOOD_TEXT = #{record.foodText,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update food
+    set FOOD_ID = #{record.foodId,jdbcType=INTEGER},
+      VILLAGE_ID = #{record.villageId,jdbcType=INTEGER},
+      TOP_ID = #{record.topId,jdbcType=INTEGER},
+      FOOD_NAME = #{record.foodName,jdbcType=VARCHAR},
+      FOOD_PIC = #{record.foodPic,jdbcType=VARCHAR},
+      FOOD_INTRODUCE = #{record.foodIntroduce,jdbcType=VARCHAR},
+      FOOD_PRICE = #{record.foodPrice,jdbcType=REAL},
+      FOOD_RECOMMEND = #{record.foodRecommend,jdbcType=INTEGER},
+      FOOD_PLACE = #{record.foodPlace,jdbcType=VARCHAR},
+      FOOD_MATERIAL = #{record.foodMaterial,jdbcType=VARCHAR},
+      FOOD_PRACTICE = #{record.foodPractice,jdbcType=VARCHAR},
+      FOOD_EFFECT = #{record.foodEffect,jdbcType=VARCHAR},
+      FOOD_TYPE = #{record.foodType,jdbcType=INTEGER},
+      FOOD_KEYWORD = #{record.foodKeyword,jdbcType=VARCHAR},
+      FOOD_TEXT = #{record.foodText,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update food
+    set FOOD_ID = #{record.foodId,jdbcType=INTEGER},
+      VILLAGE_ID = #{record.villageId,jdbcType=INTEGER},
+      TOP_ID = #{record.topId,jdbcType=INTEGER},
+      FOOD_NAME = #{record.foodName,jdbcType=VARCHAR},
+      FOOD_PIC = #{record.foodPic,jdbcType=VARCHAR},
+      FOOD_INTRODUCE = #{record.foodIntroduce,jdbcType=VARCHAR},
+      FOOD_PRICE = #{record.foodPrice,jdbcType=REAL},
+      FOOD_RECOMMEND = #{record.foodRecommend,jdbcType=INTEGER},
+      FOOD_PLACE = #{record.foodPlace,jdbcType=VARCHAR},
+      FOOD_MATERIAL = #{record.foodMaterial,jdbcType=VARCHAR},
+      FOOD_PRACTICE = #{record.foodPractice,jdbcType=VARCHAR},
+      FOOD_EFFECT = #{record.foodEffect,jdbcType=VARCHAR},
+      FOOD_TYPE = #{record.foodType,jdbcType=INTEGER},
+      FOOD_KEYWORD = #{record.foodKeyword,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="nsu.edu.qingcheng.bean.Food">
+    update food
+    <set>
+      <if test="villageId != null">
+        VILLAGE_ID = #{villageId,jdbcType=INTEGER},
+      </if>
+      <if test="topId != null">
+        TOP_ID = #{topId,jdbcType=INTEGER},
+      </if>
+      <if test="foodName != null">
+        FOOD_NAME = #{foodName,jdbcType=VARCHAR},
+      </if>
+      <if test="foodPic != null">
+        FOOD_PIC = #{foodPic,jdbcType=VARCHAR},
+      </if>
+      <if test="foodIntroduce != null">
+        FOOD_INTRODUCE = #{foodIntroduce,jdbcType=VARCHAR},
+      </if>
+      <if test="foodPrice != null">
+        FOOD_PRICE = #{foodPrice,jdbcType=REAL},
+      </if>
+      <if test="foodRecommend != null">
+        FOOD_RECOMMEND = #{foodRecommend,jdbcType=INTEGER},
+      </if>
+      <if test="foodPlace != null">
+        FOOD_PLACE = #{foodPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="foodMaterial != null">
+        FOOD_MATERIAL = #{foodMaterial,jdbcType=VARCHAR},
+      </if>
+      <if test="foodPractice != null">
+        FOOD_PRACTICE = #{foodPractice,jdbcType=VARCHAR},
+      </if>
+      <if test="foodEffect != null">
+        FOOD_EFFECT = #{foodEffect,jdbcType=VARCHAR},
+      </if>
+      <if test="foodType != null">
+        FOOD_TYPE = #{foodType,jdbcType=INTEGER},
+      </if>
+      <if test="foodKeyword != null">
+        FOOD_KEYWORD = #{foodKeyword,jdbcType=VARCHAR},
+      </if>
+      <if test="foodText != null">
+        FOOD_TEXT = #{foodText,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where FOOD_ID = #{foodId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="nsu.edu.qingcheng.bean.Food">
+    update food
+    set VILLAGE_ID = #{villageId,jdbcType=INTEGER},
+      TOP_ID = #{topId,jdbcType=INTEGER},
+      FOOD_NAME = #{foodName,jdbcType=VARCHAR},
+      FOOD_PIC = #{foodPic,jdbcType=VARCHAR},
+      FOOD_INTRODUCE = #{foodIntroduce,jdbcType=VARCHAR},
+      FOOD_PRICE = #{foodPrice,jdbcType=REAL},
+      FOOD_RECOMMEND = #{foodRecommend,jdbcType=INTEGER},
+      FOOD_PLACE = #{foodPlace,jdbcType=VARCHAR},
+      FOOD_MATERIAL = #{foodMaterial,jdbcType=VARCHAR},
+      FOOD_PRACTICE = #{foodPractice,jdbcType=VARCHAR},
+      FOOD_EFFECT = #{foodEffect,jdbcType=VARCHAR},
+      FOOD_TYPE = #{foodType,jdbcType=INTEGER},
+      FOOD_KEYWORD = #{foodKeyword,jdbcType=VARCHAR},
+      FOOD_TEXT = #{foodText,jdbcType=LONGVARCHAR}
+    where FOOD_ID = #{foodId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="nsu.edu.qingcheng.bean.Food">
+    update food
+    set VILLAGE_ID = #{villageId,jdbcType=INTEGER},
+      TOP_ID = #{topId,jdbcType=INTEGER},
+      FOOD_NAME = #{foodName,jdbcType=VARCHAR},
+      FOOD_PIC = #{foodPic,jdbcType=VARCHAR},
+      FOOD_INTRODUCE = #{foodIntroduce,jdbcType=VARCHAR},
+      FOOD_PRICE = #{foodPrice,jdbcType=REAL},
+      FOOD_RECOMMEND = #{foodRecommend,jdbcType=INTEGER},
+      FOOD_PLACE = #{foodPlace,jdbcType=VARCHAR},
+      FOOD_MATERIAL = #{foodMaterial,jdbcType=VARCHAR},
+      FOOD_PRACTICE = #{foodPractice,jdbcType=VARCHAR},
+      FOOD_EFFECT = #{foodEffect,jdbcType=VARCHAR},
+      FOOD_TYPE = #{foodType,jdbcType=INTEGER},
+      FOOD_KEYWORD = #{foodKeyword,jdbcType=VARCHAR}
+    where FOOD_ID = #{foodId,jdbcType=INTEGER}
+  </update>
+</mapper>

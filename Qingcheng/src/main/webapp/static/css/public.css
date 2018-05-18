@@ -1,0 +1,138 @@
+html,body{
+	width:100%;
+	height:100%;
+}
+*{
+	margin: 0;
+	padding: 0;
+}
+header{
+	/* #C7DDF4*/
+	height: 15%;
+	width:100%;
+	/*background-color:#C7DDF4;*/
+	position: fixed;
+	z-index: 100;
+	margin: 0;
+}
+
+header {
+	z-index: 100;
+	/*background-color: #558F6E;*/
+	background-color: #8edeff;
+	top: 0px;
+	position: fixed;
+}
+
+body {
+	position: relative;
+}
+
+.top_head{
+	width: 100%;
+	height: 67%;
+}
+
+.logo {
+	width: 20%;
+	height: 100%;
+	float: left;
+	margin-left: 8%;
+	margin-top: 0.5%;
+}
+
+.navigation {
+	width: 100%;
+	height: 5%;
+	padding: 10px 0;
+	top: 68%;
+	position: absolute;
+	background-color: #8edeff;
+}
+
+.navigation ul {
+	display: flex;
+	flex-direction: row;
+	list-style-type: none;
+	justify-content: space-around;
+	align-items: center;
+	height: 98%;
+	width: 60%;
+	margin-left: 7%;
+}
+
+.navigation a {
+	margin: 5px 0;
+	border-radius: 12px;
+}
+
+.navigation a li {
+	font-size: 18px;
+	color: black;
+	font-family: "宋体";
+	margin-top: 5px;
+}
+
+.navigation a:hover {
+	font-weight: bolder;
+}
+
+.navigation a {
+	text-decoration: none;
+	color: white;
+	opacity: 0.8;
+}
+
+
+.center{
+	width: 100%;
+	height:65%;
+}
+.bottom{
+	width: 100%;
+	height:12%;
+	top:12%;
+	/*bottom: 0;
+	position: absolute;*/
+	background-color: #95BCA7;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	flex-direction: column;
+}
+footer ul{
+	list-style-type: none;
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-around;
+}
+footer ul li{
+	float: left;
+}
+footer h2{
+	color:white;
+}
+h1{
+	font-family: brushupWeb;
+}
+h2{
+	font-family: fontHello;
+}
+h3{
+	font-family: ralewayBold;
+}
+h4{
+	font-family: ralewayLight;
+}
+h5{
+	font-family: ralewayRegular;
+}
+h6{
+	font-family: ralewySemibold;
+}
+a{
+	text-decoration: none;
+	color: white;
+}

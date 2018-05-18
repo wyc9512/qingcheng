@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="nsu.edu.qingcheng.dao.HomeMapper">
+  <resultMap id="BaseResultMap" type="nsu.edu.qingcheng.bean.Home">
+    <id column="HOME_ID" jdbcType="INTEGER" property="homeId" />
+    <result column="HOME_PIC" jdbcType="VARCHAR" property="homePic" />
+    <result column="HOME_INTRODUCE" jdbcType="VARCHAR" property="homeIntroduce" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    HOME_ID, HOME_PIC, HOME_INTRODUCE
+  </sql>
+  <select id="selectByExample" parameterType="nsu.edu.qingcheng.bean.HomeExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from home
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from home
+    where HOME_ID = #{homeId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from home
+    where HOME_ID = #{homeId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="nsu.edu.qingcheng.bean.HomeExample">
+    delete from home
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="nsu.edu.qingcheng.bean.Home">
+    insert into home (HOME_ID, HOME_PIC, HOME_INTRODUCE
+      )
+    values (#{homeId,jdbcType=INTEGER}, #{homePic,jdbcType=VARCHAR}, #{homeIntroduce,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="nsu.edu.qingcheng.bean.Home">
+    insert into home
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="homeId != null">
+        HOME_ID,
+      </if>
+      <if test="homePic != null">
+        HOME_PIC,
+      </if>
+      <if test="homeIntroduce != null">
+        HOME_INTRODUCE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="homeId != null">
+        #{homeId,jdbcType=INTEGER},
+      </if>
+      <if test="homePic != null">
+        #{homePic,jdbcType=VARCHAR},
+      </if>
+      <if test="homeIntroduce != null">
+        #{homeIntroduce,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="nsu.edu.qingcheng.bean.HomeExample" resultType="java.lang.Long">
+    select count(*) from home
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update home
+    <set>
+      <if test="record.homeId != null">
+        HOME_ID = #{record.homeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.homePic != null">
+        HOME_PIC = #{record.homePic,jdbcType=VARCHAR},
+      </if>
+      <if test="record.homeIntroduce != null">
+        HOME_INTRODUCE = #{record.homeIntroduce,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update home
+    set HOME_ID = #{record.homeId,jdbcType=INTEGER},
+      HOME_PIC = #{record.homePic,jdbcType=VARCHAR},
+      HOME_INTRODUCE = #{record.homeIntroduce,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="nsu.edu.qingcheng.bean.Home">
+    update home
+    <set>
+      <if test="homePic != null">
+        HOME_PIC = #{homePic,jdbcType=VARCHAR},
+      </if>
+      <if test="homeIntroduce != null">
+        HOME_INTRODUCE = #{homeIntroduce,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where HOME_ID = #{homeId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="nsu.edu.qingcheng.bean.Home">
+    update home
+    set HOME_PIC = #{homePic,jdbcType=VARCHAR},
+      HOME_INTRODUCE = #{homeIntroduce,jdbcType=VARCHAR}
+    where HOME_ID = #{homeId,jdbcType=INTEGER}
+  </update>
+</mapper>
